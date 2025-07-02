@@ -1,19 +1,13 @@
 
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-@font-face {
-  font-family: 'Kokila';
-  src: url('fonts/kokila.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-
 body {
-    font-family: 'Kokila', 'Noto Sans Devanagari', 'Mangal', sans-serif;
+    font-family: 'Noto Sans Devanagari', Arial, sans-serif;
     line-height: 1.6;
     color: #333;
     background-color: #f8f9fa;
