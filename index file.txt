@@ -1,0 +1,21 @@
+life-insurance-nepal/
+├── index.html                  # मुख्य पृष्ठ
+├── about.html                  # वेबसाइटको बारेमा
+├── topics/                     # विषयगत पृष्ठहरू
+│   ├── pros-cons.html          # जीवन बीमाको राम्रो/नराम्रो पक्ष
+│   ├── who-needs.html          # कसले बीमा गर्नुपर्छ
+│   ├── how-much.html           # कति बीमा गर्ने
+│   ├── agents.html             # एजेन्ट सम्बन्धी जानकारी
+│   ├── premium.html            # किस्ता सम्बन्धी
+│   ├── claims.html             # दाबी प्रक्रिया
+│   └── research.html           # अनुसन्धान डेटा
+├── css/
+│   ├── style.css               # मुख्य CSS फाइल
+│   └── bootstrap.min.css       # Bootstrap CSS (वैकल्पिक)
+├── js/
+│   ├── main.js                 # मुख्य JavaScript
+│   ├── calculator.js           # प्रिमियम क्याल्कुलेटर
+│   └── chart.js                # अनुसन्धान डेटा चार्ट
+├── images/                     # छविहरूको फोल्डर
+├── README.md                   # प्रोजेक्ट डक्युमेन्टेसन
+└── LICENSE                     # MIT लाइसेन्स
