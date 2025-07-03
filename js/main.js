@@ -1,10 +1,19 @@
-
+// =============================================
 // Global Variables
+// =============================================
 let currentSection = 'home';
 let currentTopic = 'pros-cons';
 let currentResearch = 'market-share';
+let premiumChart, marketShareChart, provinceChart, claimsChart, premiumGrowthChart, policyGrowthChart;
 
+// =============================================
 // Navigation Functions
+// =============================================
+
+/**
+ * Shows the selected section and hides others
+ * @param {string} sectionId - ID of the section to show
+ */
 function showSection(sectionId) {
     // Hide all sections
     const sections = document.querySelectorAll('.section');
@@ -22,11 +31,8 @@ function showSection(sectionId) {
     // Update navigation active state
     updateNavigation();
     
-    // Close mobile menu
-    const navMenu = document.getElementById('navMenu');
-    if (navMenu) {
-        navMenu.classList.remove('active');
-    }
+    // Close mobile menu if open
+    closeMobileMenu();
     
     // Scroll to top
     window.scrollTo(0, 0);
@@ -34,9 +40,48 @@ function showSection(sectionId) {
     // Initialize section-specific features
     if (sectionId === 'research') {
         initializeCharts();
+    } else if (sectionId === 'calculator') {
+        initializeCalculator();
     }
 }
 
+/**
+ * Updates the active state in navigation
+ */
+function updateNavigation() {
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(currentSection)) {
+            link.classList.add('active');
+        }
+    });
+}
+
+/**
+ * Toggles mobile menu visibility
+ */
+function toggleMenu() {
+    const navMenu = document.getElementById('navMenu');
+    if (navMenu) {
+        navMenu.classList.toggle('active');
+    }
+}
+
+/**
+ * Closes mobile menu if open
+ */
+function closeMobileMenu() {
+    const navMenu = document.getElementById('navMenu');
+    if (navMenu && navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+    }
+}
+
+/**
+ * Shows the selected topic in Basics section
+ * @param {string} topicId - ID of the topic to show
+ */
 function showTopic(topicId) {
     // Hide all topic contents
     const topics = document.querySelectorAll('.topic-content');
@@ -52,6 +97,14 @@ function showTopic(topicId) {
     }
     
     // Update topic navigation
+    updateTopicNavigation(topicId);
+}
+
+/**
+ * Updates active state in topic navigation
+ * @param {string} topicId - ID of the active topic
+ */
+function updateTopicNavigation(topicId) {
     const topicBtns = document.querySelectorAll('.topic-btn');
     topicBtns.forEach(btn => {
         btn.classList.remove('active');
@@ -63,6 +116,10 @@ function showTopic(topicId) {
     }
 }
 
+/**
+ * Shows the selected research topic
+ * @param {string} researchId - ID of the research topic to show
+ */
 function showResearch(researchId) {
     // Hide all research contents
     const researches = document.querySelectorAll('.research-content');
@@ -78,6 +135,19 @@ function showResearch(researchId) {
     }
     
     // Update research navigation
+    updateResearchNavigation(researchId);
+    
+    // Initialize charts for specific research sections
+    setTimeout(() => {
+        initializeCharts();
+    }, 100);
+}
+
+/**
+ * Updates active state in research navigation
+ * @param {string} researchId - ID of the active research topic
+ */
+function updateResearchNavigation(researchId) {
     const researchBtns = document.querySelectorAll('.research-btn');
     researchBtns.forEach(btn => {
         btn.classList.remove('active');
@@ -87,31 +157,16 @@ function showResearch(researchId) {
     if (activeBtn) {
         activeBtn.classList.add('active');
     }
-    
-    // Initialize charts for specific research sections
-    setTimeout(() => {
-        initializeCharts();
-    }, 100);
 }
 
-function updateNavigation() {
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(currentSection)) {
-            link.classList.add('active');
-        }
-    });
-}
-
-function toggleMenu() {
-    const navMenu = document.getElementById('navMenu');
-    if (navMenu) {
-        navMenu.classList.toggle('active');
-    }
-}
-
+// =============================================
 // FAQ Functions
+// =============================================
+
+/**
+ * Toggles FAQ answer visibility
+ * @param {HTMLElement} element - The clicked FAQ question element
+ */
 function toggleFAQ(element) {
     const answer = element.nextElementSibling;
     const isActive = element.classList.contains('active');
@@ -123,15 +178,35 @@ function toggleFAQ(element) {
         faq.nextElementSibling.classList.remove('active');
     });
     
-    // Toggle current FAQ
+    // Toggle current FAQ if it wasn't active
     if (!isActive) {
         element.classList.add('active');
         answer.classList.add('active');
     }
 }
 
+// =============================================
 // Calculator Functions
+// =============================================
+
+/**
+ * Initializes calculator section
+ */
+function initializeCalculator() {
+    // Set default values
+    document.getElementById('age').value = 35;
+    document.getElementById('sumAssured').value = 20;
+    
+    // Add event listeners for real-time calculation if needed
+    // document.getElementById('age').addEventListener('input', calculatePremium);
+    // document.getElementById('sumAssured').addEventListener('input', calculatePremium);
+}
+
+/**
+ * Calculates insurance premium based on user inputs
+ */
 function calculatePremium() {
+    // Get input values
     const age = parseInt(document.getElementById('age').value);
     const gender = document.getElementById('gender').value;
     const sumAssured = parseInt(document.getElementById('sumAssured').value);
@@ -139,40 +214,21 @@ function calculatePremium() {
     const policyTerm = parseInt(document.getElementById('policyTerm').value);
     const smoking = document.getElementById('smoking').value;
     
-    // Validation
+    // Validate inputs
     if (!age || !sumAssured || age < 18 || age > 65) {
-        alert('कृपया सबै विवरण सही तरिकाले भर्नुहोस्।');
+        showAlert('कृपया सबै विवरण सही तरिकाले भर्नुहोस्।', 'error');
         return;
     }
     
     // Base premium calculation (simplified)
     let basePremium = sumAssured * 100000; // Convert to paisa
     
-    // Age factor
-    if (age <= 30) basePremium *= 0.008;
-    else if (age <= 40) basePremium *= 0.012;
-    else if (age <= 50) basePremium *= 0.018;
-    else basePremium *= 0.025;
-    
-    // Gender factor
-    if (gender === 'female') basePremium *= 0.9;
-    
-    // Policy type factor
-    const policyFactors = {
-        'term': 1.0,
-        'endowment': 3.5,
-        'whole': 4.2,
-        'ulip': 2.8
-    };
-    basePremium *= policyFactors[policyType] || 1.0;
-    
-    // Policy term factor
-    if (policyTerm <= 15) basePremium *= 1.1;
-    else if (policyTerm <= 25) basePremium *= 1.0;
-    else basePremium *= 0.95;
-    
-    // Smoking factor
-    if (smoking === 'yes') basePremium *= 1.3;
+    // Apply factors
+    basePremium = applyAgeFactor(basePremium, age);
+    basePremium = applyGenderFactor(basePremium, gender);
+    basePremium = applyPolicyTypeFactor(basePremium, policyType);
+    basePremium = applyPolicyTermFactor(basePremium, policyTerm);
+    basePremium = applySmokingFactor(basePremium, smoking);
     
     // Calculate final values
     const monthlyPremium = Math.round(basePremium / 12);
@@ -181,29 +237,85 @@ function calculatePremium() {
     const deathBenefit = sumAssured * 100000; // Convert to paisa
     
     // Display results
-    document.getElementById('monthlyPremium').textContent = 
-        'रु. ' + monthlyPremium.toLocaleString('ne-NP');
-    document.getElementById('yearlyPremium').textContent = 
-        'रु. ' + yearlyPremium.toLocaleString('ne-NP');
-    document.getElementById('totalPayment').textContent = 
-        'रु. ' + totalPayment.toLocaleString('ne-NP');
-    document.getElementById('deathBenefit').textContent = 
-        'रु. ' + deathBenefit.toLocaleString('ne-NP');
+    displayResults(monthlyPremium, yearlyPremium, totalPayment, deathBenefit);
     
     // Show premium breakdown chart
     showPremiumBreakdown(yearlyPremium);
+}
+
+/**
+ * Applies age factor to premium calculation
+ */
+function applyAgeFactor(premium, age) {
+    if (age <= 30) return premium * 0.008;
+    if (age <= 40) return premium * 0.012;
+    if (age <= 50) return premium * 0.018;
+    return premium * 0.025;
+}
+
+/**
+ * Applies gender factor to premium calculation
+ */
+function applyGenderFactor(premium, gender) {
+    return gender === 'female' ? premium * 0.9 : premium;
+}
+
+/**
+ * Applies policy type factor to premium calculation
+ */
+function applyPolicyTypeFactor(premium, policyType) {
+    const factors = {
+        'term': 1.0,
+        'endowment': 3.5,
+        'whole': 4.2,
+        'ulip': 2.8
+    };
+    return premium * (factors[policyType] || 1.0);
+}
+
+/**
+ * Applies policy term factor to premium calculation
+ */
+function applyPolicyTermFactor(premium, policyTerm) {
+    if (policyTerm <= 15) return premium * 1.1;
+    if (policyTerm <= 25) return premium;
+    return premium * 0.95;
+}
+
+/**
+ * Applies smoking factor to premium calculation
+ */
+function applySmokingFactor(premium, smoking) {
+    return smoking === 'yes' ? premium * 1.3 : premium;
+}
+
+/**
+ * Displays calculation results
+ */
+function displayResults(monthly, yearly, total, benefit) {
+    document.getElementById('monthlyPremium').textContent = 
+        'रु. ' + monthly.toLocaleString('ne-NP');
+    document.getElementById('yearlyPremium').textContent = 
+        'रु. ' + yearly.toLocaleString('ne-NP');
+    document.getElementById('totalPayment').textContent = 
+        'रु. ' + total.toLocaleString('ne-NP');
+    document.getElementById('deathBenefit').textContent = 
+        'रु. ' + benefit.toLocaleString('ne-NP');
     
     // Show results section
     document.getElementById('calculatorResults').style.display = 'block';
 }
 
+/**
+ * Shows premium breakdown chart
+ */
 function showPremiumBreakdown(totalPremium) {
     const ctx = document.getElementById('premiumChart');
     if (!ctx) return;
     
     // Destroy existing chart if it exists
-    if (window.premiumChart) {
-        window.premiumChart.destroy();
+    if (premiumChart) {
+        premiumChart.destroy();
     }
     
     const data = {
@@ -222,7 +334,7 @@ function showPremiumBreakdown(totalPremium) {
         }]
     };
     
-    window.premiumChart = new Chart(ctx, {
+    premiumChart = new Chart(ctx, {
         type: 'doughnut',
         data: data,
         options: {
@@ -251,7 +363,13 @@ function showPremiumBreakdown(totalPremium) {
     });
 }
 
-// Chart Initialization Functions
+// =============================================
+// Chart Functions
+// =============================================
+
+/**
+ * Initializes charts for the current section
+ */
 function initializeCharts() {
     if (currentResearch === 'market-share') {
         initializeMarketShareChart();
@@ -264,13 +382,16 @@ function initializeCharts() {
     }
 }
 
+/**
+ * Initializes market share chart
+ */
 function initializeMarketShareChart() {
     const ctx = document.getElementById('marketShareChart');
     if (!ctx) return;
     
     // Destroy existing chart if it exists
-    if (window.marketShareChart) {
-        window.marketShareChart.destroy();
+    if (marketShareChart) {
+        marketShareChart.destroy();
     }
     
     const data = {
@@ -297,7 +418,7 @@ function initializeMarketShareChart() {
         }]
     };
     
-    window.marketShareChart = new Chart(ctx, {
+    marketShareChart = new Chart(ctx, {
         type: 'pie',
         data: data,
         options: {
@@ -325,13 +446,16 @@ function initializeMarketShareChart() {
     });
 }
 
+/**
+ * Initializes province penetration chart
+ */
 function initializeProvinceChart() {
     const ctx = document.getElementById('provinceChart');
     if (!ctx) return;
     
     // Destroy existing chart if it exists
-    if (window.provinceChart) {
-        window.provinceChart.destroy();
+    if (provinceChart) {
+        provinceChart.destroy();
     }
     
     const data = {
@@ -353,7 +477,7 @@ function initializeProvinceChart() {
         }]
     };
     
-    window.provinceChart = new Chart(ctx, {
+    provinceChart = new Chart(ctx, {
         type: 'bar',
         data: data,
         options: {
@@ -390,13 +514,16 @@ function initializeProvinceChart() {
     });
 }
 
+/**
+ * Initializes claims data chart
+ */
 function initializeClaimsChart() {
     const ctx = document.getElementById('claimsChart');
     if (!ctx) return;
     
     // Destroy existing chart if it exists
-    if (window.claimsChart) {
-        window.claimsChart.destroy();
+    if (claimsChart) {
+        claimsChart.destroy();
     }
     
     const data = {
@@ -421,7 +548,7 @@ function initializeClaimsChart() {
         }]
     };
     
-    window.claimsChart = new Chart(ctx, {
+    claimsChart = new Chart(ctx, {
         type: 'doughnut',
         data: data,
         options: {
@@ -449,18 +576,24 @@ function initializeClaimsChart() {
     });
 }
 
+/**
+ * Initializes trend charts
+ */
 function initializeTrendCharts() {
     initializePremiumGrowthChart();
     initializePolicyGrowthChart();
 }
 
+/**
+ * Initializes premium growth chart
+ */
 function initializePremiumGrowthChart() {
     const ctx = document.getElementById('premiumGrowthChart');
     if (!ctx) return;
     
     // Destroy existing chart if it exists
-    if (window.premiumGrowthChart) {
-        window.premiumGrowthChart.destroy();
+    if (premiumGrowthChart) {
+        premiumGrowthChart.destroy();
     }
     
     const data = {
@@ -476,7 +609,7 @@ function initializePremiumGrowthChart() {
         }]
     };
     
-    window.premiumGrowthChart = new Chart(ctx, {
+    premiumGrowthChart = new Chart(ctx, {
         type: 'line',
         data: data,
         options: {
@@ -514,13 +647,16 @@ function initializePremiumGrowthChart() {
     });
 }
 
+/**
+ * Initializes policy growth chart
+ */
 function initializePolicyGrowthChart() {
     const ctx = document.getElementById('policyGrowthChart');
     if (!ctx) return;
     
     // Destroy existing chart if it exists
-    if (window.policyGrowthChart) {
-        window.policyGrowthChart.destroy();
+    if (policyGrowthChart) {
+        policyGrowthChart.destroy();
     }
     
     const data = {
@@ -536,7 +672,7 @@ function initializePolicyGrowthChart() {
         }]
     };
     
-    window.policyGrowthChart = new Chart(ctx, {
+    policyGrowthChart = new Chart(ctx, {
         type: 'line',
         data: data,
         options: {
@@ -574,7 +710,14 @@ function initializePolicyGrowthChart() {
     });
 }
 
-// Contact Form Handler
+// =============================================
+// Contact Form Functions
+// =============================================
+
+/**
+ * Handles contact form submission
+ * @param {Event} event - Form submission event
+ */
 function handleContact(event) {
     event.preventDefault();
     
@@ -601,7 +744,7 @@ function handleContact(event) {
         return;
     }
     
-    // Simulate form submission (in real implementation, this would send to a server)
+    // Simulate form submission
     showContactMessage('तपाईंको सन्देश सफलतापूर्वक पठाइएको छ। हामी चाँडै सम्पर्क गर्नेछौं।', 'success');
     
     // Clear form
@@ -617,6 +760,11 @@ function handleContact(event) {
     });
 }
 
+/**
+ * Shows contact form message
+ * @param {string} message - Message to display
+ * @param {string} type - Type of message ('success' or 'error')
+ */
 function showContactMessage(message, type) {
     const messageDiv = document.getElementById('contactMessage');
     if (!messageDiv) return;
@@ -631,45 +779,71 @@ function showContactMessage(message, type) {
     }, 5000);
 }
 
-// Search Functionality (Basic)
-function initializeSearch() {
-    // This is a placeholder for search functionality
-    // In a real implementation, this would index all content and provide search results
-    console.log('Search functionality initialized');
+// =============================================
+// Utility Functions
+// =============================================
+
+/**
+ * Shows alert message
+ * @param {string} message - Message to display
+ * @param {string} type - Type of alert ('success' or 'error')
+ */
+function showAlert(message, type) {
+    alert(message); // In production, replace with a custom modal
 }
 
-// Utility Functions
+/**
+ * Formats number to Nepali locale
+ * @param {number} number - Number to format
+ * @returns {string} Formatted number string
+ */
 function formatNepaliNumber(number) {
     return number.toLocaleString('ne-NP');
 }
 
+/**
+ * Formats currency amount
+ * @param {number} amount - Amount to format
+ * @returns {string} Formatted currency string
+ */
 function formatCurrency(amount) {
     return `रु. ${amount.toLocaleString('ne-NP')}`;
 }
 
-// Event Listeners
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the application
-    console.log('जीवन बीमा शिक्षा वेबसाइट लोड भयो');
-    
+// =============================================
+// Event Listeners and Initialization
+// =============================================
+
+/**
+ * Initializes the application
+ */
+function initializeApp() {
     // Set default section
     showSection('home');
     
-    // Initialize search
-    initializeSearch();
+    // Initialize calculator
+    initializeCalculator();
     
-    // Add keyboard navigation
+    // Add event listeners
+    setupEventListeners();
+    
+    // Initialize accessibility features
+    enhanceAccessibility();
+}
+
+/**
+ * Sets up event listeners
+ */
+function setupEventListeners() {
+    // Keyboard navigation
     document.addEventListener('keydown', function(event) {
         // ESC key to close mobile menu
         if (event.key === 'Escape') {
-            const navMenu = document.getElementById('navMenu');
-            if (navMenu && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-            }
+            closeMobileMenu();
         }
     });
     
-    // Add click outside to close mobile menu
+    // Click outside to close mobile menu
     document.addEventListener('click', function(event) {
         const navMenu = document.getElementById('navMenu');
         const navToggle = document.querySelector('.nav-toggle');
@@ -683,7 +857,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+        anchor.addEventListener('click', function(e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
@@ -695,81 +869,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add loading animation for charts
-    const chartElements = document.querySelectorAll('canvas');
-    chartElements.forEach(canvas => {
-        canvas.addEventListener('load', function() {
-            console.log('Chart loaded:', canvas.id);
-        });
-    });
-});
-
-// Resize handler for responsive charts
-window.addEventListener('resize', function() {
-    // Resize charts when window is resized
-    if (window.premiumChart) {
-        window.premiumChart.resize();
-    }
-    if (window.marketShareChart) {
-        window.marketShareChart.resize();
-    }
-    if (window.provinceChart) {
-        window.provinceChart.resize();
-    }
-    if (window.claimsChart) {
-        window.claimsChart.resize();
-    }
-    if (window.premiumGrowthChart) {
-        window.premiumGrowthChart.resize();
-    }
-    if (window.policyGrowthChart) {
-        window.policyGrowthChart.resize();
-    }
-});
-
-// Print functionality
-function printSection() {
-    window.print();
-}
-
-// Share functionality (basic)
-function shareContent() {
-    if (navigator.share) {
-        navigator.share({
-            title: 'गैर-नाफामूलक जीवन बीमा शिक्षा',
-            text: 'नेपालमा जीवन बीमाको सम्पूर्ण जानकारी',
-            url: window.location.href
-        });
-    } else {
-        // Fallback for browsers that don't support Web Share API
-        const url = window.location.href;
-        navigator.clipboard.writeText(url).then(() => {
-            alert('लिङ्क क्लिपबोर्डमा कपी भएको छ!');
-        });
-    }
-}
-
-// Analytics (placeholder)
-function trackEvent(category, action, label) {
-    // This would integrate with Google Analytics or similar service
-    console.log('Event tracked:', { category, action, label });
-}
-
-// Error handling
-window.addEventListener('error', function(event) {
-    console.error('Application error:', event.error);
-    // In production, this would send error reports to a logging service
-});
-
-// Service Worker registration (for offline functionality)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        // Service worker would be registered here for offline functionality
-        console.log('Service Worker ready for registration');
+    // Resize handler for responsive charts
+    window.addEventListener('resize', function() {
+        if (premiumChart) premiumChart.resize();
+        if (marketShareChart) marketShareChart.resize();
+        if (provinceChart) provinceChart.resize();
+        if (claimsChart) claimsChart.resize();
+        if (premiumGrowthChart) premiumGrowthChart.resize();
+        if (policyGrowthChart) policyGrowthChart.resize();
     });
 }
 
-// Accessibility enhancements
+/**
+ * Enhances accessibility features
+ */
 function enhanceAccessibility() {
     // Add ARIA labels where needed
     const buttons = document.querySelectorAll('button:not([aria-label])');
@@ -779,7 +892,7 @@ function enhanceAccessibility() {
         }
     });
     
-    // Add skip links
+    // Add skip to content link
     const skipLink = document.createElement('a');
     skipLink.href = '#main-content';
     skipLink.className = 'sr-only';
@@ -787,19 +900,19 @@ function enhanceAccessibility() {
     document.body.insertBefore(skipLink, document.body.firstChild);
 }
 
-// Initialize accessibility enhancements
-document.addEventListener('DOMContentLoaded', enhanceAccessibility);
+// Initialize the application when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeApp);
 
-// Performance monitoring
-function measurePerformance() {
-    if ('performance' in window) {
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-            }, 0);
-        });
-    }
+// Error handling
+window.addEventListener('error', function(event) {
+    console.error('Application error:', event.error);
+    // In production, send error reports to a logging service
+});
+
+// Service Worker registration (for offline functionality)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        // Service worker would be registered here for offline functionality
+        console.log('Service Worker ready for registration');
+    });
 }
-
-measurePerformance();

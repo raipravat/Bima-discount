@@ -1,56 +1,41 @@
+
 <!DOCTYPE html>
 <html lang="ne-NP">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>कुरा बीमा | नेपाल</title>
-    <meta
-      name="description"
-      content="नेपालमा जीवन बीमासम्बन्धी निःशुल्क, निष्पक्ष र पूर्ण जानकारी । शैक्षिक पहल ।"
-    />
-    <meta
-      name="keywords"
-      content="जीवन बीमा, नेपाल, बीमा क्याल्कुलेटर, बीमा अनुसन्धान, बीमा FAQ, बीमा सम्पर्क"
-    />
+    <meta name="description" content="नेपालमा जीवन बीमासम्बन्धी निःशुल्क, निष्पक्ष र पूर्ण जानकारी । शैक्षिक पहल ।" />
+    <meta name="keywords" content="जीवन बीमा, नेपाल, बीमा क्याल्कुलेटर, बीमा अनुसन्धान, बीमा FAQ, बीमा सम्पर्क" />
     <meta name="author" content="कुरा बीमा" />
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
+</head>
+<body>
     <!-- Header -->
     <header class="header">
-      <div class="container">
-        <div class="logo">
-            <img src="images/logo.png" alt="कुरा बीमा लोगो" class="site-logo" style="height:50px;width:auto;display:block;margin-bottom:2px;" />
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="कुरा बीमा लोगो" class="site-logo" style="height:50px;width:auto;display:block;margin-bottom:2px;" />
+            </div>
+            <nav class="nav">
+                <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" onclick="showSection('home')">Home</a></li>
+                    <li><a href="#basics" onclick="showSection('basics')">Basics</a></li>
+                    <li><a href="#calculator" onclick="showSection('calculator')">Calculator</a></li>
+                    <li><a href="#research" onclick="showSection('research')">Research</a></li>
+                    <li><a href="#faq" onclick="showSection('faq')">FQAs</a></li>
+                    <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-        <nav class="nav">
-          <button class="nav-toggle" onclick="toggleMenu()">☰</button>
-          <ul class="nav-menu" id="navMenu">
-            <li><a href="#home" onclick="showSection('home')">Home</a></li>
-            <li>
-              <a href="#basics" onclick="showSection('basics')">Basics</a>
-            </li>
-            <li>
-              <a href="#calculator" onclick="showSection('calculator')"
-                >Calculator</a
-              >
-            </li>
-            <li>
-              <a href="#research" onclick="showSection('research')"
-                >Research</a
-              >
-            </li>
-            <li><a href="#faq" onclick="showSection('faq')">FQAs</a></li>
-            <li>
-              <a href="#contact" onclick="showSection('contact')">Contact</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </header>
 
+  <!-- Main Content -->
+  <main class="main-content">
     <!-- Home Section -->
     <section id="home" class="section active">
       <div class="hero">
