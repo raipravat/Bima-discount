@@ -1,134 +1,193 @@
- document.addEventListener('DOMContentLoaded', function() {
-            // Animate stats counter
-            function animateValue(id, start, end, duration) {
-                const obj = document.getElementById(id);
-                let startTimestamp = null;
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    const value = Math.floor(progress * (end - start) + start);
-                    obj.innerHTML = value.toLocaleString() + '+';
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    }
-                };
-                window.requestAnimationFrame(step);
-            }
-            
-            animateValue("happy-families", 0, 12000, 2000);
-            
-            // Testimonial slider
-            const testimonials = [
-                {
-                    text: "I was skeptical at first, but receiving $1,250 back on my $5,000 premium was incredible. The process was seamless and I got the exact same policy I would have gotten directly from the insurer.",
-                    author: "Michael T.",
-                    role: "Dallas, TX"
-                },
-                {
-                    text: "As a financial advisor, I recommend all my clients use this cash back program. It's essentially free money for the same coverage they need anyway.",
-                    author: "Sarah K.",
-                    role: "Certified Financial Planner"
-                },
-                {
-                    text: "We used our $850 cash back to take a family vacation. It felt like getting rewarded for being responsible about our family's future.",
-                    author: "James & Lisa W.",
-                    role: "Chicago, IL"
-                }
-            ];
-            
-            let currentTestimonial = 0;
-            const testimonialElement = document.querySelector('.testimonial');
-            
-            function showTestimonial(index) {
-                const testimonial = testimonials[index];
-                testimonialElement.innerHTML = `
-                    <p class="testimonial-text">${testimonial.text}</p>
-                    <div class="testimonial-author">
-                        ${testimonial.author} <span class="author-role">${testimonial.role}</span>
-                    </div>
-                `;
-            }
-            
-            function nextTestimonial() {
-                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-                showTestimonial(currentTestimonial);
-            }
-            
-            showTestimonial(0);
-            setInterval(nextTestimonial, 5000);
-            
-            // FAQ accordion
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
-                question.addEventListener('click', () => {
-                    item.classList.toggle('active');
-                    
-                    // Close other open items
-                    faqItems.forEach(otherItem => {
-                        if (otherItem !== item && otherItem.classList.contains('active')) {
-                            otherItem.classList.remove('active');
-                        }
-                    });
-                });
-            });
-            
-            // Smooth scrolling for navigation
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    if (this.getAttribute('href') === '#affiliate-link') {
-                        // This would be your actual affiliate link
-                        e.preventDefault();
-                        alert('This would redirect to your affiliate link. Replace #affiliate-link with your actual link in the HTML.');
-                        return;
-                    }
-                    
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Mobile menu toggle
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
-            
-            if (mobileMenuBtn && navLinks) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-                });
-                
-                // Close menu when clicking on a link
-                document.querySelectorAll('.nav-links a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        navLinks.style.display = 'none';
-                    });
-                });
-            }
-            
-            // Countdown timer
-            function updateCountdown() {
-                const now = new Date();
-                const endOfDay = new Date();
-                endOfDay.setHours(23, 59, 59, 999);
-                
-                const diff = endOfDay - now;
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                
-                document.querySelector('.hero p').innerHTML = 
-                    `Secure your family's future while putting money back in your pocket. Our exclusive program gives you cash rewards when you purchase through our link. <strong>Offer expires in ${hours}h ${minutes}m ${seconds}s!</strong>`;
-            }
-            
-            setInterval(updateCountdown, 1000);
-            updateCountdown();
+// Mobile menu toggle
+const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+const navLinks = document.querySelector(".nav-links");
+
+if (mobileMenuBtn && navLinks) {
+  mobileMenuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+    mobileMenuBtn.textContent = navLinks.classList.contains("show") ? "✕" : "☰";
+  });
+}
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    if (this.getAttribute("href") === "#affiliate-link") {
+      e.preventDefault();
+      alert(
+        "This would redirect to your affiliate link. Replace #affiliate-link with your actual link in the HTML."
+      );
+      return;
+    }
+
+    e.preventDefault();
+    const targetId = this.getAttribute("href");
+    if (targetId === "#") return;
+
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      window.scrollTo({
+        top: targetElement.offsetTop - 80,
+        behavior: "smooth",
+      });
+
+      // Close mobile menu after click
+      if (window.innerWidth <= 768) {
+        navLinks.classList.remove("show");
+        mobileMenuBtn.textContent = "☰";
+      }
+    }
+  });
+});
+
+// Active section indicator for navigation
+const sections = document.querySelectorAll("section");
+const navItems = document.querySelectorAll(".nav-links li a");
+const indicatorDots = document.querySelectorAll(".current-section-indicator a");
+const activeIndicator = document.querySelector(".active-indicator");
+
+function setActiveSection() {
+  let currentSection = "";
+
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop - 100;
+    if (window.pageYOffset >= sectionTop) {
+      currentSection = section.getAttribute("id");
+    }
+  });
+
+  // Update navigation links
+  navItems.forEach((item) => {
+    item.classList.remove("active");
+    if (item.getAttribute("href") === `#${currentSection}`) {
+      item.classList.add("active");
+
+      // Update indicator position
+      const activeItem = item.parentElement;
+      const itemLeft = activeItem.offsetLeft;
+      const itemWidth = activeItem.offsetWidth;
+
+      if (activeIndicator) {
+        activeIndicator.style.width = `${itemWidth}px`;
+        activeIndicator.style.left = `${itemLeft}px`;
+        activeIndicator.style.opacity = "1";
+      }
+    }
+  });
+
+  // Update indicator dots
+  indicatorDots.forEach((dot) => {
+    dot.classList.remove("active");
+    if (dot.getAttribute("href") === `#${currentSection}`) {
+      dot.classList.add("active");
+    }
+  });
+
+  // Hide indicator if no active section
+  if (!currentSection && activeIndicator) {
+    activeIndicator.style.opacity = "0";
+  }
+}
+
+// FAQ accordion functionality
+const faqQuestions = document.querySelectorAll(".faq-question");
+faqQuestions.forEach((question) => {
+  question.addEventListener("click", () => {
+    const item = question.parentElement;
+    item.classList.toggle("active");
+
+    // Close other open items
+    faqQuestions.forEach((q) => {
+      if (q !== question) {
+        q.parentElement.classList.remove("active");
+      }
+    });
+  });
+});
+
+// Set initial active section and add scroll event listener
+setActiveSection();
+window.addEventListener("scroll", setActiveSection);
+
+// Animation for stats counter
+function animateStats() {
+  const statNumber = document.getElementById("happy-families");
+  if (statNumber && !statNumber.dataset.animated) {
+    const target = parseInt(statNumber.textContent.replace("+", ""));
+    let current = 0;
+    const increment = target / 50;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        clearInterval(timer);
+        current = target;
+        statNumber.dataset.animated = true;
+      }
+      statNumber.textContent = Math.floor(current) + "+";
+    }, 20);
+  }
+}
+
+// Intersection Observer for animations
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        if (entry.target.classList.contains("stats")) {
+          animateStats();
+        }
+        entry.target.classList.add("animated");
+      }
+    });
+  },
+  { threshold: 0.1 }
+);
+
+// Observe sections that should be animated
+document.querySelectorAll("section").forEach((section) => {
+  observer.observe(section);
+});
+// Scroll to top button functionality
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+        const scrollPercentage = document.getElementById("scrollPercentage");
+        
+        function toggleScrollToTopButton() {
+          if (window.pageYOffset > 300) {
+            scrollToTopBtn.classList.add("show");
+          } else {
+            scrollToTopBtn.classList.remove("show");
+          }
+          
+          // Calculate scroll percentage
+          const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const scrolled = (window.pageYOffset / scrollHeight) * 100;
+          scrollPercentage.textContent = Math.round(scrolled) + "%";
+        }
+        
+        scrollToTopBtn.addEventListener("click", function() {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
         });
+        
+        window.addEventListener("scroll", toggleScrollToTopButton);
+        
+        // Smooth scroll for anchor links with offset for fixed header
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            if (this.getAttribute("href") !== "#") {
+              e.preventDefault();
+              const target = document.querySelector(this.getAttribute("href"));
+              if (target) {
+                const headerHeight = 190; // Adjusted for fixed header
+                window.scrollTo({
+                  top: target.offsetTop - headerHeight,
+                  behavior: "smooth",
+                });
+              }
+            }
+          });
+        });
+// Initialize scroll to top button visibility
