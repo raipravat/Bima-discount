@@ -804,35 +804,3 @@ footer {
     grid-template-columns: 1fr;
   }
 }
-
-/* Current Section Indicator */
-.current-section-indicator {
-  position: fixed;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.current-section-indicator a {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: #e74c3c8f;
-  display: block;
-  transition: all 0.3s ease;
-}
-
-.current-section-indicator a.active {
-  background-color: var(--accent);
-  transform: scale(1.3);
-}
-
-@media (max-width: 768px) {
-  .current-section-indicator {
-    display: none;
-  }
-}

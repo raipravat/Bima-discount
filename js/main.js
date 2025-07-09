@@ -43,7 +43,6 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 // Active section indicator for navigation
 const sections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".nav-links li a");
-const indicatorDots = document.querySelectorAll(".current-section-indicator a");
 const activeIndicator = document.querySelector(".active-indicator");
 
 function setActiveSection() {
@@ -72,14 +71,6 @@ function setActiveSection() {
         activeIndicator.style.left = `${itemLeft}px`;
         activeIndicator.style.opacity = "1";
       }
-    }
-  });
-
-  // Update indicator dots
-  indicatorDots.forEach((dot) => {
-    dot.classList.remove("active");
-    if (dot.getAttribute("href") === `#${currentSection}`) {
-      dot.classList.add("active");
     }
   });
 
