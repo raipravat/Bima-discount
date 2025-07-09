@@ -50,7 +50,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
+  padding: 10px 0;
   position: relative;
 }
 
@@ -645,58 +645,56 @@ footer {
 }
 
 /* ========== Scroll to Top Button ========== */
-      .scroll-to-top {
-        position: fixed;
-        bottom: 30px;
-        right: 5px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: var(--accent);
-        color: white;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        z-index: 9999;
-      }
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
 
-      .scroll-to-top.show {
-        opacity: 1;
-        visibility: visible;
-      }
+.scroll-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
 
-      .scroll-to-top:hover {
-        background: var(--primary);
-        transform: translateY(-5px);
-      }
+.scroll-to-top:hover {
+  transform: translateY(-5px);
+}
 
-      .scroll-to-top svg {
-        width: 18px;
-        height: 18px;
-        margin-top: 2px;
-      }
+.scroll-to-top svg {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+}
 
-      @media (max-width: 575.98px) {
-        
-        .scroll-to-top {
-          width: 40px;
-          height: 40px;
-          bottom: 20px;
-          right: 10px;
-        }
-        
-        .scroll-to-top svg {
-          width: 16px;
-          height: 16px;
-        }
-      } 
+@media (max-width: 575.98px) {
+  .scroll-to-top {
+    width: 40px;
+    height: 40px;
+    bottom: 20px;
+    right: 10px;
+  }
+
+  .scroll-to-top svg {
+    width: 16px;
+    height: 16px;
+  }
+}
 
 /* Responsive Styles */
 @media (max-width: 992px) {
@@ -823,13 +821,13 @@ footer {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: rgba(26, 58, 107, 0.3);
+  background-color: #e74c3c8f;
   display: block;
   transition: all 0.3s ease;
 }
 
 .current-section-indicator a.active {
-  background-color: var(--primary);
+  background-color: var(--accent);
   transform: scale(1.3);
 }
 

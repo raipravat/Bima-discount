@@ -149,45 +149,29 @@ document.querySelectorAll("section").forEach((section) => {
   observer.observe(section);
 });
 // Scroll to top button functionality
-        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-        const scrollPercentage = document.getElementById("scrollPercentage");
-        
-        function toggleScrollToTopButton() {
-          if (window.pageYOffset > 300) {
-            scrollToTopBtn.classList.add("show");
-          } else {
-            scrollToTopBtn.classList.remove("show");
-          }
-          
-          // Calculate scroll percentage
-          const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          const scrolled = (window.pageYOffset / scrollHeight) * 100;
-          scrollPercentage.textContent = Math.round(scrolled) + "%";
-        }
-        
-        scrollToTopBtn.addEventListener("click", function() {
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
-        });
-        
-        window.addEventListener("scroll", toggleScrollToTopButton);
-        
-        // Smooth scroll for anchor links with offset for fixed header
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-          anchor.addEventListener("click", function (e) {
-            if (this.getAttribute("href") !== "#") {
-              e.preventDefault();
-              const target = document.querySelector(this.getAttribute("href"));
-              if (target) {
-                const headerHeight = 190; // Adjusted for fixed header
-                window.scrollTo({
-                  top: target.offsetTop - headerHeight,
-                  behavior: "smooth",
-                });
-              }
-            }
-          });
-        });
-// Initialize scroll to top button visibility
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+const scrollPercentage = document.getElementById("scrollPercentage");
+
+function toggleScrollToTopButton() {
+  if (window.pageYOffset > 300) {
+    scrollToTopBtn.classList.add("show");
+  } else {
+    scrollToTopBtn.classList.remove("show");
+  }
+
+  // Calculate scroll percentage
+  const scrollHeight =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+  const scrolled = (window.pageYOffset / scrollHeight) * 100;
+  scrollPercentage.textContent = Math.round(scrolled) + "%";
+}
+
+scrollToTopBtn.addEventListener("click", function () {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});
+
+window.addEventListener("scroll", toggleScrollToTopButton);
