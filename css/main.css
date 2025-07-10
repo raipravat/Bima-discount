@@ -644,6 +644,11 @@ footer {
   opacity: 0.7;
 }
 
+.terms{
+  text-decoration: none;
+  color: var(--light);
+}
+
 /* ========== Scroll to Top Button ========== */
 .scroll-to-top {
   position: fixed;
@@ -652,8 +657,8 @@ footer {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: var(--accent);
-  color: white;
+  background-color: var(--secondary);
+  color:var(--dark);
   border: none;
   cursor: pointer;
   display: flex;
@@ -717,7 +722,6 @@ footer {
 
   .hero-buttons {
     display: flex;
-    flex-direction: column;
     gap: 15px;
   }
 
