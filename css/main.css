@@ -87,10 +87,6 @@ header {
   padding: 5px 0;
 }
 
-.nav-links a:hover {
-  color: var(--primary);
-}
-
 .nav-links a.active {
   color: var(--primary);
   font-weight: 600;
