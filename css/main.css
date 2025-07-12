@@ -343,18 +343,24 @@ header {
   background-color: var(--gray);
   z-index: 0;
 }
-
 /* Testimonials */
 .testimonials {
   padding: 100px 0;
   background: linear-gradient(135deg, var(--primary), var(--primary-light));
   color: var(--light);
+  overflow: hidden;
 }
 
-.testimonial-slider {
+.testimonial-container {
   max-width: 800px;
   margin: 50px auto 0;
   position: relative;
+}
+
+.testimonial-slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
 }
 
 .testimonial {
@@ -363,8 +369,32 @@ header {
   border-radius: 10px;
   text-align: center;
   backdrop-filter: blur(5px);
+  min-width: 100%;
+  flex-shrink: 0;
 }
 
+/* Navigation Dots */
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 10px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: var(--light);
+}
+
+/* Testimonial text styles (keep your existing ones) */
 .testimonial-text {
   font-size: 18px;
   font-style: italic;
