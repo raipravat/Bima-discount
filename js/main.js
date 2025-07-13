@@ -1,42 +1,44 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const sections = document.querySelectorAll('section');
-  const navLinks = document.querySelectorAll('.nav-links a');
+document.addEventListener("DOMContentLoaded", function () {
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".nav-links a");
 
   // Highlight first link on page load if at top
   if (window.scrollY === 0) {
-    document.querySelector('.nav-links a[href="#hero"]').classList.add('active');
+    document
+      .querySelector('.nav-links a[href="#hero"]')
+      .classList.add("active");
   }
 
-  window.addEventListener('scroll', function() {
-    let current = '';
-    
-    sections.forEach(section => {
+  window.addEventListener("scroll", function () {
+    let current = "";
+
+    sections.forEach((section) => {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.clientHeight;
-      
-      if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
-        current = section.getAttribute('id');
+
+      if (pageYOffset >= sectionTop - sectionHeight / 3) {
+        current = section.getAttribute("id");
       }
     });
 
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === `#${current}`) {
+        link.classList.add("active");
       }
     });
   });
 
   // Smooth scrolling for anchor links
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
       e.preventDefault();
-      const targetId = this.getAttribute('href');
+      const targetId = this.getAttribute("href");
       const targetSection = document.querySelector(targetId);
-      
+
       window.scrollTo({
         top: targetSection.offsetTop,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     });
   });
@@ -123,6 +125,67 @@ function setActiveSection() {
     activeIndicator.style.opacity = "0";
   }
 }
+
+// Testimonial Slider
+document.addEventListener("DOMContentLoaded", function () {
+  const testimonials = document.querySelectorAll(".testimonial");
+  const dots = document.querySelectorAll(".dot");
+  let currentIndex = 0;
+  let interval;
+
+  function showTestimonial(index) {
+    // Hide all testimonials
+    testimonials.forEach((testimonial) => {
+      testimonial.classList.remove("active");
+    });
+
+    // Show current testimonial
+    testimonials[index].classList.add("active");
+
+    // Update dots
+    dots.forEach((dot) => {
+      dot.classList.remove("active");
+    });
+    dots[index].classList.add("active");
+
+    currentIndex = index;
+  }
+
+  // Dot navigation
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      const index = parseInt(dot.dataset.index);
+      showTestimonial(index);
+      resetInterval();
+    });
+  });
+
+  function nextTestimonial() {
+    currentIndex = (currentIndex + 1) % testimonials.length;
+    showTestimonial(currentIndex);
+  }
+
+  function resetInterval() {
+    clearInterval(interval);
+    interval = setInterval(nextTestimonial, 5000);
+  }
+
+  // Initialize
+  showTestimonial(0);
+  interval = setInterval(nextTestimonial, 5000);
+
+  // Pause on hover
+  const sliderContainer = document.querySelector(".testimonial-container");
+  if (sliderContainer) {
+    sliderContainer.addEventListener("mouseenter", () => {
+      clearInterval(interval);
+    });
+
+    sliderContainer.addEventListener("mouseleave", () => {
+      resetInterval();
+    });
+  }
+});
 
 // FAQ accordion functionality
 const faqQuestions = document.querySelectorAll(".faq-question");
