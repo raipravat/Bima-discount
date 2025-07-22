@@ -223,7 +223,7 @@ function animateStats() {
       const suffix = match[2] || "";
 
       let current = 0;
-      const increment = targetNumber / 50; // Controls animation speed
+      const increment = targetNumber / 100; // Controls animation speed
       const isDecimal = originalText.includes(".");
 
       const timer = setInterval(() => {
