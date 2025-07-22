@@ -210,73 +210,62 @@ window.addEventListener("scroll", setActiveSection);
 // Animation for stats counter
 function animateStats() {
   const statNumbers = document.querySelectorAll(".stat-number");
-  
+
   statNumbers.forEach((statNumber) => {
     if (!statNumber.dataset.animated) {
-      let originalText = statNumber.textContent;
-      let target = 0;
-      let suffix = "";
-      let isLakh = false;
-      
-      // Extract numeric value and any suffix
-      const matches = originalText.match(/([\d.]+)(.*)/);
-      if (matches) {
-        target = parseFloat(matches[1]);
-        suffix = matches[2] || "";
-        isLakh = originalText.includes("Lakh");
-      }
-      
+      const originalText = statNumber.textContent;
+
+      // Extract components from the original text
+      const match = originalText.match(/^([\d.]+)(.*)$/);
+      if (!match) return;
+
+      const targetNumber = parseFloat(match[1]);
+      const suffix = match[2] || "";
+
       let current = 0;
-      const increment = target / 50;
-      
+      const increment = targetNumber / 50; // Controls animation speed
+      const isDecimal = originalText.includes(".");
+
       const timer = setInterval(() => {
         current += increment;
-        if (current >= target) {
+
+        if (current >= targetNumber) {
           clearInterval(timer);
-          current = target;
+          statNumber.textContent = originalText; // Show exact original text
           statNumber.dataset.animated = true;
-          statNumber.textContent = originalText;
         } else {
-          // For Lakh values, show increasing number with Lakh+ throughout
-          if (isLakh) {
-            statNumber.textContent = Math.floor(current) + " Lakh+";
-          } 
-          // For decimal numbers (like 4.5/5)
-          else if (originalText.includes(".")) {
-            statNumber.textContent = current.toFixed(1) + suffix.replace(/^[^a-zA-Z]*/, '');
-          } 
-          // For regular numbers
-          else {
-            statNumber.textContent = Math.floor(current) + suffix;
+          // Format the currently animating number
+          let displayNumber;
+          if (isDecimal) {
+            displayNumber = current.toFixed(1); // For decimals like 4.5/5
+          } else {
+            displayNumber = Math.floor(current); // For whole numbers
           }
+          statNumber.textContent = displayNumber + suffix; // Keep suffix during animation
         }
       }, 20);
     }
   });
 }
 
-
-// Intersection Observer for animations
+// Trigger animation when stats section comes into view
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        if (entry.target.classList.contains("stats")) {
-          animateStats();
-        }
-        entry.target.classList.add("animated");
+        animateStats();
+        observer.unobserve(entry.target); // Stop observing after triggering
       }
     });
   },
   { threshold: 0.1 }
 );
 
-// Observe the stats section
+// Start observing the stats section
 const statsSection = document.querySelector(".stats");
 if (statsSection) {
   observer.observe(statsSection);
 }
-
 
 // Scroll to top button functionality
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
