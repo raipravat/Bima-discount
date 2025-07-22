@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize
   showTestimonial(0);
-  interval = setInterval(nextTestimonial, 5000);
+  resetInterval();
 
   // Pause on hover
   const sliderContainer = document.querySelector(".testimonial-container");
@@ -209,23 +209,52 @@ window.addEventListener("scroll", setActiveSection);
 
 // Animation for stats counter
 function animateStats() {
-  const statNumber = document.getElementById("happy-families");
-  if (statNumber && !statNumber.dataset.animated) {
-    const target = parseInt(statNumber.textContent.replace("+", ""));
-    let current = 0;
-    const increment = target / 50;
-
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
-        clearInterval(timer);
-        current = target;
-        statNumber.dataset.animated = true;
+  const statNumbers = document.querySelectorAll(".stat-number");
+  
+  statNumbers.forEach((statNumber) => {
+    if (!statNumber.dataset.animated) {
+      let originalText = statNumber.textContent;
+      let target = 0;
+      let suffix = "";
+      let isLakh = false;
+      
+      // Extract numeric value and any suffix
+      const matches = originalText.match(/([\d.]+)(.*)/);
+      if (matches) {
+        target = parseFloat(matches[1]);
+        suffix = matches[2] || "";
+        isLakh = originalText.includes("Lakh");
       }
-      statNumber.textContent = Math.floor(current) + "+";
-    }, 20);
-  }
+      
+      let current = 0;
+      const increment = target / 50;
+      
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          clearInterval(timer);
+          current = target;
+          statNumber.dataset.animated = true;
+          statNumber.textContent = originalText;
+        } else {
+          // For Lakh values, show increasing number with Lakh+ throughout
+          if (isLakh) {
+            statNumber.textContent = Math.floor(current) + " Lakh+";
+          } 
+          // For decimal numbers (like 4.5/5)
+          else if (originalText.includes(".")) {
+            statNumber.textContent = current.toFixed(1) + suffix.replace(/^[^a-zA-Z]*/, '');
+          } 
+          // For regular numbers
+          else {
+            statNumber.textContent = Math.floor(current) + suffix;
+          }
+        }
+      }, 20);
+    }
+  });
 }
+
 
 // Intersection Observer for animations
 const observer = new IntersectionObserver(
@@ -242,10 +271,13 @@ const observer = new IntersectionObserver(
   { threshold: 0.1 }
 );
 
-// Observe sections that should be animated
-document.querySelectorAll("section").forEach((section) => {
-  observer.observe(section);
-});
+// Observe the stats section
+const statsSection = document.querySelector(".stats");
+if (statsSection) {
+  observer.observe(statsSection);
+}
+
+
 // Scroll to top button functionality
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 const scrollPercentage = document.getElementById("scrollPercentage");
