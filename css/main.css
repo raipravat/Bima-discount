@@ -22,6 +22,16 @@ body {
   overflow-x: hidden;
 }
 
+.highlight {
+  color: var(--secondary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
 h1,
 h2,
 h3,
@@ -126,7 +136,7 @@ header {
 .hero {
   background: linear-gradient(135deg, var(--primary), var(--primary-light));
   color: var(--light);
-  padding: 180px 0 100px;
+  padding: 190px 0 100px;
   position: relative;
   overflow: hidden;
 }
@@ -702,6 +712,134 @@ header {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(248, 180, 0, 0.5);
   background-color: #ffc107;
+}
+
+/* Blogs Section */
+.blogs {
+  padding: 100px 0 0 0;
+  background-color: var(--light);
+}
+
+.blogs-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blogs-card:hover .blogs-image img {
+  transform: scale(1.05);
+}
+
+.blogs-content {
+  padding: 20px;
+}
+
+.blogs-content h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+  font-family: sans-serif;
+}
+
+.blogs-content p {
+  margin-bottom: 15px;
+  color: var(--gray-color);
+  font-size: 0.9rem;
+  font-family: sans-serif;
+}
+
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.blog-card {
+  background-color: var(--light);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.blog-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blog-card:hover .blog-image img {
+  transform: scale(1.05);
+}
+
+.blog-content {
+  padding: 25px;
+}
+
+.blog-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: var(--primary);
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+}
+
+.blog-snippet {
+  color: var(--dark-gray);
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.blog-meta {
+  display: flex;
+  justify-content: space-between;
+  color: var(--dark-gray);
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.blog-read-more {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.blog-read-more:hover {
+  color: var(--secondary);
+}
+
+.blog-read-more i {
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+.blogs-cta {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  grid-column: 1 / -1;
+  color: var(--dark-gray);
 }
 
 /* Footer */
