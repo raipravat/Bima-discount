@@ -60,7 +60,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 0 20px;
   position: relative;
 }
 
@@ -136,7 +136,7 @@ header {
 .hero {
   background: linear-gradient(135deg, var(--primary), var(--primary-light));
   color: var(--light);
-  padding: 190px 0 100px;
+  padding: 150px 0 120px;
   position: relative;
   overflow: hidden;
 }
