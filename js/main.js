@@ -438,7 +438,7 @@ document.addEventListener("DOMContentLoaded", function () {
       script.onerror = () => {
         document.getElementById("blog-posts").innerHTML = `
                     <div class="error" style="text-align:center; padding:40px; color:#e74c3c;">
-                        Could not load blog posts. 
+                        There is something wrong with blog posts. try again later or
                         <a href="${BLOG_URL}" style="color:#3498db;">Visit blog directly</a>
                     </div>`;
       };
@@ -453,7 +453,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!posts || posts.length === 0) {
       container.innerHTML =
-        '<div style="text-align:center; padding:40px;">No posts found.</div>';
+        '<div style="text-align:center; padding:40px;">We found nothing. Refresh the page or try again later.</div>';
       return;
     }
 
@@ -475,7 +475,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const imageUrl = imgMatch ? imgMatch[1] : null;
 
       html += `
-                <div class="project-card">
+                <div class="blogs-card">
                     ${
                       imageUrl
                         ? `
@@ -488,10 +488,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="blogs-content">
                         <h3>${title}</h3>
                         <p class="post-excerpt">${excerpt}</p>
-                        <div class="project-tech">
+                        <div class="blogs-date">
                             <span>${date}</span>
                         </div>
-                        <a href="${url}" class="project-link" target="_blank" rel="noopener">Read Post</a>
+                        <a href="${url}" class="blogs-link" target="_blank" rel="noopener">Read Post</a>
                     </div>
                 </div>
             `;
