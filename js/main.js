@@ -127,80 +127,121 @@ function setActiveSection() {
 }
 
 // Testimonial Slider
-document.addEventListener("DOMContentLoaded", function () {
-  const testimonials = document.querySelectorAll(".testimonial");
-  const dots = document.querySelectorAll(".dot");
-  let currentIndex = 0;
-  let interval;
+const testimonials = document.querySelectorAll(".testimonial");
+const dotsContainer = document.querySelector(".slider-dots");
+let currentIndex = 0;
+let interval;
 
-  function showTestimonial(index) {
-    // Hide all testimonials
-    testimonials.forEach((testimonial) => {
-      testimonial.classList.remove("active");
-    });
+// Create navigation dots dynamically
+function createDots() {
+  testimonials.forEach((_, index) => {
+    const dot = document.createElement("span");
+    dot.classList.add("dot");
+    if (index === 0) dot.classList.add("active");
+    dot.dataset.index = index;
+    dotsContainer.appendChild(dot);
+  });
+}
 
-    // Show current testimonial
-    testimonials[index].classList.add("active");
-
-    // Update dots
-    dots.forEach((dot) => {
-      dot.classList.remove("active");
-    });
-    dots[index].classList.add("active");
-
-    currentIndex = index;
-  }
-
-  // Dot navigation
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      const index = parseInt(dot.dataset.index);
-      showTestimonial(index);
-      resetInterval();
-    });
+function showTestimonial(index) {
+  // Hide all testimonials with sliding out animation
+  testimonials.forEach((testimonial) => {
+    if (testimonial.classList.contains("active")) {
+      testimonial.style.animation = "slideOut 0.5s ease forwards";
+      setTimeout(() => {
+        testimonial.classList.remove("active");
+        testimonial.style.animation = "";
+      }, 500);
+    }
   });
 
-  function nextTestimonial() {
-    currentIndex = (currentIndex + 1) % testimonials.length;
-    showTestimonial(currentIndex);
-  }
+  // Show current testimonial with sliding in animation
+  setTimeout(() => {
+    testimonials[index].classList.add("active");
+  }, 500);
 
-  function resetInterval() {
-    clearInterval(interval);
-    interval = setInterval(nextTestimonial, 5000);
-  }
+  // Update dots
+  const dots = document.querySelectorAll(".dot");
+  dots.forEach((dot) => {
+    dot.classList.remove("active");
+  });
+  dots[index].classList.add("active");
 
-  // Initialize
+  currentIndex = index;
+}
+
+// Initialize dots and event listeners
+function initSlider() {
+  createDots();
+
+  // Dot navigation
+  dotsContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("dot")) {
+      const index = parseInt(e.target.dataset.index);
+      showTestimonial(index);
+      resetInterval();
+    }
+  });
+
   showTestimonial(0);
   resetInterval();
+}
 
-  // Pause on hover
-  const sliderContainer = document.querySelector(".testimonial-container");
-  if (sliderContainer) {
-    sliderContainer.addEventListener("mouseenter", () => {
-      clearInterval(interval);
-    });
+function nextTestimonial() {
+  currentIndex = (currentIndex + 1) % testimonials.length;
+  showTestimonial(currentIndex);
+}
 
-    sliderContainer.addEventListener("mouseleave", () => {
-      resetInterval();
-    });
-  }
-});
+function resetInterval() {
+  clearInterval(interval);
+  interval = setInterval(nextTestimonial, 5000);
+}
 
-// FAQ accordion functionality
-const faqQuestions = document.querySelectorAll(".faq-question");
-faqQuestions.forEach((question) => {
-  question.addEventListener("click", () => {
-    const item = question.parentElement;
-    item.classList.toggle("active");
+// Initialize slider
+initSlider();
 
-    // Close other open items
-    faqQuestions.forEach((q) => {
-      if (q !== question) {
-        q.parentElement.classList.remove("active");
+// Pause on hover
+const sliderContainer = document.querySelector(".testimonial-container");
+if (sliderContainer) {
+  sliderContainer.addEventListener("mouseenter", () => {
+    clearInterval(interval);
+  });
+
+  sliderContainer.addEventListener("mouseleave", () => {
+    resetInterval();
+  });
+}
+
+// FAQ functionality
+document.addEventListener('DOMContentLoaded', function () {
+  const questions = document.querySelectorAll('.faq-question');
+
+  questions.forEach(question => {
+    question.addEventListener('click', function () {
+      // Remove active class from all questions
+      questions.forEach(q => q.classList.remove('active'));
+
+      // Add active class to clicked question
+      this.classList.add('active');
+
+      // Hide all answers
+      document.querySelectorAll('.faq-answer').forEach(answer => {
+        answer.classList.remove('active');
+      });
+
+      // Show corresponding answer
+      const targetId = this.getAttribute('data-target');
+      const targetAnswer = document.getElementById(targetId);
+      if (targetAnswer) {
+        targetAnswer.classList.add('active');
       }
     });
   });
+
+  // Activate the first question by default
+  if (questions.length > 0) {
+    questions[0].click();
+  }
 });
 
 // Set initial active section and add scroll event listener
@@ -354,15 +395,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       html += `
                 <div class="project-card">
-                    ${
-                      imageUrl
-                        ? `
+                    ${imageUrl
+          ? `
                     <div class="blogs-image">
                         <img src="${imageUrl}" alt="${title}" loading="lazy">
                     </div>
                     `
-                        : ""
-                    }
+          : ""
+        }
                     <div class="blogs-content">
                         <h3>${title}</h3>
                         <p class="post-excerpt">${excerpt}</p>
