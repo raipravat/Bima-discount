@@ -212,35 +212,116 @@ if (sliderContainer) {
   });
 }
 
-// FAQ functionality
-document.addEventListener('DOMContentLoaded', function () {
-  const questions = document.querySelectorAll('.faq-question');
+// FAQ functionality with transitions
+document.addEventListener("DOMContentLoaded", function () {
+  const questions = document.querySelectorAll(".faq-question");
+  const answers = document.querySelectorAll(".faq-answer");
 
-  questions.forEach(question => {
-    question.addEventListener('click', function () {
-      // Remove active class from all questions
-      questions.forEach(q => q.classList.remove('active'));
+  function isMobileView() {
+    return window.innerWidth <= 992;
+  }
 
-      // Add active class to clicked question
-      this.classList.add('active');
+  function handleQuestionClick(question) {
+    const targetId = question.getAttribute("data-target");
 
-      // Hide all answers
-      document.querySelectorAll('.faq-answer').forEach(answer => {
-        answer.classList.remove('active');
+    if (isMobileView()) {
+      // Mobile behavior
+      const wasActive = question.classList.contains("active");
+      const mobileAnswer = question.nextElementSibling;
+
+      // Close all questions and answers first
+      questions.forEach((q) => {
+        q.classList.remove("active");
+        const ans = q.nextElementSibling;
+        if (ans && ans.classList.contains("mobile-answer")) {
+          ans.style.maxHeight = "0";
+          ans.style.padding = "0 20px";
+        }
       });
 
-      // Show corresponding answer
-      const targetId = this.getAttribute('data-target');
-      const targetAnswer = document.getElementById(targetId);
-      if (targetAnswer) {
-        targetAnswer.classList.add('active');
+      // Toggle clicked question if it wasn't active
+      if (!wasActive) {
+        question.classList.add("active");
+        if (mobileAnswer && mobileAnswer.classList.contains("mobile-answer")) {
+          mobileAnswer.style.maxHeight = mobileAnswer.scrollHeight + "px";
+          mobileAnswer.style.padding = "20px";
+        }
+      }
+    } else {
+      // Desktop behavior
+      questions.forEach((q) => q.classList.remove("active"));
+      question.classList.add("active");
+
+      answers.forEach((answer) => {
+        answer.classList.remove("active");
+        if (answer.id === targetId) {
+          answer.classList.add("active");
+        }
+      });
+    }
+  }
+
+  // Initialize mobile answers if in mobile view
+  if (isMobileView()) {
+    answers.forEach((answer) => {
+      const question = document.querySelector(
+        `.faq-question[data-target="${answer.id}"]`
+      );
+      if (question) {
+        const mobileAnswer = answer.cloneNode(true);
+        mobileAnswer.classList.add("mobile-answer");
+        mobileAnswer.style.maxHeight = "0";
+        mobileAnswer.style.padding = "0 20px";
+        question.insertAdjacentElement("afterend", mobileAnswer);
       }
     });
+  }
+
+  questions.forEach((question) => {
+    question.addEventListener("click", () => handleQuestionClick(question));
   });
 
-  // Activate the first question by default
+  // Handle window resize
+  window.addEventListener("resize", function () {
+    if (isMobileView()) {
+      // Switch to mobile view
+      answers.forEach((answer) => {
+        const question = document.querySelector(
+          `.faq-question[data-target="${answer.id}"]`
+        );
+        if (
+          question &&
+          !question.nextElementSibling.classList.contains("mobile-answer")
+        ) {
+          const mobileAnswer = answer.cloneNode(true);
+          mobileAnswer.classList.add("mobile-answer");
+          mobileAnswer.style.maxHeight = "0";
+          mobileAnswer.style.padding = "0 20px";
+          question.insertAdjacentElement("afterend", mobileAnswer);
+        }
+      });
+      document.querySelector(".faq-answers").style.display = "none";
+    } else {
+      // Switch to desktop view
+      document.querySelector(".faq-answers").style.display = "block";
+      const mobileAnswers = document.querySelectorAll(".mobile-answer");
+      mobileAnswers.forEach((answer) => answer.remove());
+
+      // Activate first question
+      if (questions.length > 0) {
+        questions[0].click();
+      }
+    }
+  });
+
+  // Initialize first question
   if (questions.length > 0) {
-    questions[0].click();
+    if (!isMobileView()) {
+      questions[0].click(); // Desktop - show first answer
+    } else {
+      // Mobile - prepare answers but don't show any by default
+      questions[0].classList.remove("active");
+    }
   }
 });
 
@@ -395,14 +476,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
       html += `
                 <div class="project-card">
-                    ${imageUrl
-          ? `
+                    ${
+                      imageUrl
+                        ? `
                     <div class="blogs-image">
                         <img src="${imageUrl}" alt="${title}" loading="lazy">
                     </div>
                     `
-          : ""
-        }
+                        : ""
+                    }
                     <div class="blogs-content">
                         <h3>${title}</h3>
                         <p class="post-excerpt">${excerpt}</p>
