@@ -255,7 +255,6 @@ header {
 }
 
 .section-title p {
-  color: var(--dark-gray);
   max-width: 700px;
   margin: 0 auto;
 }
@@ -370,6 +369,7 @@ header {
   max-width: 800px;
   margin: 50px auto 0;
   position: relative;
+  overflow: hidden;
 }
 
 .testimonial-slider {
@@ -379,11 +379,14 @@ header {
 
 .testimonial {
   display: none;
-  animation: fadeIn 0.5s ease;
+  position: absolute;
+  width: 100%;
 }
 
 .testimonial.active {
   display: block;
+  position: relative;
+  animation: slideIn 0.5s ease;
 }
 
 .testimonial-content {
@@ -431,77 +434,17 @@ header {
   margin-top: 5px;
 }
 
-/* Navigation Dots */
-.slider-dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  gap: 10px;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.dot.active {
-  background-color: var(--light);
-}
-
-@keyframes fadeIn {
+/* Slider Animations */
+@keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateX(100px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
-}
-
-/* Navigation Dots */
-.slider-dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  gap: 10px;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.dot.active {
-  background-color: var(--light);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.author-role {
-  display: block;
-  font-weight: 400;
-  opacity: 0.8;
-  font-size: 14px;
 }
 
 /* Navigation Dots */
@@ -528,8 +471,7 @@ header {
 /* CTA Section */
 .cta-section {
   padding: 120px 0;
-  background: url("https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")
-    no-repeat center center/cover;
+  background: url("https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80") no-repeat center center/cover;
   position: relative;
   text-align: center;
   color: var(--light);
@@ -570,48 +512,129 @@ header {
 }
 
 .faq-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.faq-item {
-  margin-bottom: 15px;
-  border: 1px solid var(--gray);
-  border-radius: 8px;
+.faq-columns {
+  display: flex;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* Questions Column */
+.faq-questions {
+  flex: 0 0 60%;
+  /* Made questions column 60% width */
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .faq-question {
-  padding: 20px;
-  background-color: var(--gray);
+  padding: 20px 25px;
+  background-color: white;
   font-weight: 600;
   cursor: pointer;
   position: relative;
+  border-bottom: 1px solid var(--gray);
+  transition: all 0.3s ease;
+  font-size: 17px;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+}
+
+.faq-question:last-child {
+  border-bottom: none;
+}
+
+.faq-question:hover {
+  background-color: rgba(26, 58, 107, 0.05);
+}
+
+.faq-question.active {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary-light);
+}
+
+.faq-question::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--secondary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.faq-question:hover::before,
+.faq-question.active::before {
+  opacity: 1;
 }
 
 .faq-question::after {
   content: "+";
   position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 25px;
   font-size: 20px;
+  font-weight: 400;
+  transition: transform 0.3s ease;
 }
 
-.faq-item.active .faq-question::after {
+.faq-question.active::after {
   content: "-";
+  transform: rotate(180deg);
+}
+
+/* Answers Column */
+.faq-answers {
+  flex: 1;
+  /* Answers column takes remaining space */
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 120px;
+  height: fit-content;
 }
 
 .faq-answer {
-  padding: 0 20px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
+  display: none;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--dark);
+  animation: fadeIn 0.4s ease forwards;
 }
 
-.faq-item.active .faq-answer {
-  padding: 20px;
-  max-height: 500px;
+.faq-answer.active {
+  display: block;
+}
+
+.faq-answer p {
+  margin-bottom: 15px;
+}
+
+.faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Contact Section */
@@ -852,7 +875,7 @@ footer {
   color: var(--light);
 }
 
-/* ========== Scroll to Top Button ========== */
+/* Scroll to Top Button */
 .scroll-to-top {
   position: fixed;
   bottom: 30px;
@@ -890,21 +913,21 @@ footer {
   margin-top: 2px;
 }
 
-@media (max-width: 575.98px) {
-  .scroll-to-top {
-    width: 40px;
-    height: 40px;
-    bottom: 20px;
-    right: 10px;
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .hero h1 {
+    font-size: 42px;
   }
 
-  .scroll-to-top svg {
-    width: 16px;
-    height: 16px;
+  .section-title h2 {
+    font-size: 32px;
+  }
+
+  .cta-content h2 {
+    font-size: 36px;
   }
 }
 
-/* Responsive Styles */
 @media (max-width: 992px) {
   .hero::before {
     width: 100%;
@@ -934,6 +957,18 @@ footer {
 
   .btn {
     padding: 10px 20px;
+  }
+
+  .faq-columns {
+    flex-direction: column;
+  }
+
+  .faq-questions {
+    flex: 1;
+  }
+
+  .faq-answers {
+    position: static;
   }
 }
 
@@ -988,9 +1023,18 @@ footer {
   .stat-item {
     flex: 1 1 150px;
   }
+
+  .faq-question {
+    padding: 18px 20px;
+    font-size: 16px;
+  }
+
+  .faq-answers {
+    padding: 25px;
+  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
   .hero h1 {
     font-size: 28px;
   }
@@ -1013,5 +1057,30 @@ footer {
 
   .footer-container {
     grid-template-columns: 1fr;
+  }
+
+  .faq-question {
+    padding: 16px 18px;
+    font-size: 15px;
+  }
+
+  .faq-answer {
+    font-size: 15px;
+  }
+
+  .faq-answers {
+    padding: 20px;
+  }
+
+  .scroll-to-top {
+    width: 40px;
+    height: 40px;
+    bottom: 20px;
+    right: 10px;
+  }
+
+  .scroll-to-top svg {
+    width: 16px;
+    height: 16px;
   }
 }
