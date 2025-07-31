@@ -391,8 +391,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.addEventListener("scroll", toggleScrollToTopButton);
 
-
-
  // Chat widget functionality - corrected version
   const chatWidget = document.querySelector(".chat-widget");
   const chatToggle = document.querySelector(".chat-toggle");
@@ -434,8 +432,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   }
-
-
 
   // Lead form submission
   const leadForm = document.getElementById("lead-form");
