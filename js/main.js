@@ -391,7 +391,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.addEventListener("scroll", toggleScrollToTopButton);
 
-  // Chat widget functionality
+
+
+ // Chat widget functionality - corrected version
   const chatWidget = document.querySelector(".chat-widget");
   const chatToggle = document.querySelector(".chat-toggle");
   const chatClose = document.querySelector(".chat-close");
@@ -399,8 +401,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (chatWidget && chatToggle && chatClose) {
     // Show chat widget after delay
     setTimeout(() => {
-      chatWidget.style.transform = "translateY(0)";
-      chatWidget.style.opacity = "1";
+      chatWidget.classList.add("open");
       chatToggle.classList.add("hide");
     }, 10000);
 
@@ -410,21 +411,31 @@ document.addEventListener("DOMContentLoaded", function () {
       chatToggle.classList.add("hide");
     });
 
-    // Close chat widget
+    // Close chat widget - fixed version
     chatClose.addEventListener("click", (e) => {
       e.stopPropagation(); // Prevent event bubbling
       chatWidget.classList.remove("open");
       chatToggle.classList.remove("hide");
     });
 
+    // Close when clicking outside (optional)
+    document.addEventListener('click', (e) => {
+      if (!chatWidget.contains(e.target) && e.target !== chatToggle) {
+        chatWidget.classList.remove("open");
+        chatToggle.classList.remove("hide");
+      }
+    });
+
     // Chat options
     const chatOptions = document.querySelectorAll(".chat-option");
     chatOptions.forEach(option => {
       option.addEventListener("click", () => {
-        alert("This would open the appropriate chat or form in a real implementation.");
+        // Your chat option functionality
       });
     });
   }
+
+
 
   // Lead form submission
   const leadForm = document.getElementById("lead-form");
@@ -436,4 +447,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-// Add this code to the end of your main.js file
