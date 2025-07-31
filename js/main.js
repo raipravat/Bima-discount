@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
   if (mobileMenuBtn && navLinks) {
     mobileMenuBtn.addEventListener("click", () => {
       navLinks.classList.toggle("show");
-      mobileMenuBtn.textContent = navLinks.classList.contains("show") ? "✕" : "☰";
+      mobileMenuBtn.textContent = navLinks.classList.contains("show")
+        ? "✕"
+        : "☰";
     });
   }
 
@@ -31,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (targetElement) {
         window.scrollTo({
           top: targetElement.offsetTop - 80,
-          behavior: "smooth",
+          behavior: "smooth"
         });
 
         // Close mobile menu after click
@@ -78,11 +80,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function calculateCashback() {
     const premium = parseFloat(premiumInput.value) || 0;
     const cashback = premium * 0.25; // 25% cash back
-    cashbackAmount.textContent = `₹${cashback.toLocaleString('en-IN')}`;
+    cashbackAmount.textContent = `₹${cashback.toLocaleString("en-IN")}`;
   }
 
   calculateBtn.addEventListener("click", calculateCashback);
-  premiumInput.addEventListener("keyup", function(e) {
+  premiumInput.addEventListener("keyup", function (e) {
     if (e.key === "Enter") {
       calculateCashback();
     }
@@ -285,20 +287,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     tomorrow.setHours(23, 59, 59, 0);
-    
+
     const diff = tomorrow - now;
-    
+
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    
-    document.getElementById("days").textContent = days.toString().padStart(2, '0');
-    document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
-    document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
-    document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+
+    document.getElementById("days").textContent = days
+      .toString()
+      .padStart(2, "0");
+    document.getElementById("hours").textContent = hours
+      .toString()
+      .padStart(2, "0");
+    document.getElementById("minutes").textContent = minutes
+      .toString()
+      .padStart(2, "0");
+    document.getElementById("seconds").textContent = seconds
+      .toString()
+      .padStart(2, "0");
   }
-  
+
   // Update countdown every second
   updateCountdown();
   setInterval(updateCountdown, 1000);
@@ -315,7 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const match = originalText.match(/^([\d.]+)(.*)$/);
         if (!match) return;
 
-        const targetNumber = parseFloat(match[1].replace(/,/g, ''));
+        const targetNumber = parseFloat(match[1].replace(/,/g, ""));
         const suffix = match[2] || "";
 
         let current = 0;
@@ -337,7 +347,8 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
               displayNumber = Math.floor(current); // For whole numbers
             }
-            statNumber.textContent = displayNumber.toLocaleString('en-IN') + suffix;
+            statNumber.textContent =
+              displayNumber.toLocaleString("en-IN") + suffix;
           }
         }, 20);
       }
@@ -385,13 +396,13 @@ document.addEventListener("DOMContentLoaded", function () {
   scrollToTopBtn.addEventListener("click", function () {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: "smooth"
     });
   });
 
   window.addEventListener("scroll", toggleScrollToTopButton);
 
- // Chat widget functionality - corrected version
+  // Chat widget functionality
   const chatWidget = document.querySelector(".chat-widget");
   const chatToggle = document.querySelector(".chat-toggle");
   const chatClose = document.querySelector(".chat-close");
@@ -409,7 +420,7 @@ document.addEventListener("DOMContentLoaded", function () {
       chatToggle.classList.add("hide");
     });
 
-    // Close chat widget - fixed version
+    // Close chat widget
     chatClose.addEventListener("click", (e) => {
       e.stopPropagation(); // Prevent event bubbling
       chatWidget.classList.remove("open");
@@ -417,7 +428,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Close when clicking outside (optional)
-    document.addEventListener('click', (e) => {
+    document.addEventListener("click", (e) => {
       if (!chatWidget.contains(e.target) && e.target !== chatToggle) {
         chatWidget.classList.remove("open");
         chatToggle.classList.remove("hide");
@@ -426,9 +437,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Chat options
     const chatOptions = document.querySelectorAll(".chat-option");
-    chatOptions.forEach(option => {
+    chatOptions.forEach((option) => {
       option.addEventListener("click", () => {
         // Your chat option functionality
+        alert("This feature would connect you to a live agent in the full implementation.");
       });
     });
   }
@@ -436,10 +448,28 @@ document.addEventListener("DOMContentLoaded", function () {
   // Lead form submission
   const leadForm = document.getElementById("lead-form");
   if (leadForm) {
-    leadForm.addEventListener("submit", function(e) {
+    leadForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      alert("Thank you! We'll contact you shortly with your cash back estimate.");
+      alert(
+        "Thank you! We'll contact you shortly with your cash back estimate."
+      );
       this.reset();
+    });
+  }
+
+  // Insurance comparison filter functionality
+  const filterBtn = document.querySelector(".filter-btn");
+  if (filterBtn) {
+    filterBtn.addEventListener("click", function() {
+      alert("In a full implementation, this would filter the insurance plans based on your selection.");
+    });
+  }
+
+  // Agent search functionality
+  const agentSearchBtn = document.querySelector(".search-btn");
+  if (agentSearchBtn) {
+    agentSearchBtn.addEventListener("click", function() {
+      alert("In a full implementation, this would search for agents in your area.");
     });
   }
 });
