@@ -411,7 +411,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Close chat widget
-    chatClose.addEventListener("click", () => {
+    chatClose.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent event bubbling
       chatWidget.classList.remove("open");
       chatToggle.classList.remove("hide");
     });
@@ -435,3 +436,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+// Add this code to the end of your main.js file
