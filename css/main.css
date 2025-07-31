@@ -84,13 +84,13 @@ h1, h2, h3, h4 {
 }
 
 .btn-secondary {
-  background-color: transparent;
+  background-color: var(--accent);
   color: var(--light);
   border: 2px solid var(--light);
 }
 
 .btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--primary);
 }
 
 .section-title {
@@ -280,7 +280,7 @@ header {
 
 .nav-links > li > a {
   color: var(--dark);
-  padding: 15px 20px;
+  padding: 0 10px;
   display: block;
   font-weight: 500;
   transition: all 0.3s;
@@ -453,6 +453,7 @@ header {
   gap: 15px;
   margin-bottom: 30px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .call-center-features {
@@ -481,7 +482,7 @@ header {
 /* Stats Section */
 .stats {
   background-color: var(--light);
-  padding: 80px 0;
+  padding: 50px 0;
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
 }
 
@@ -1114,9 +1115,9 @@ header {
 }
 
 .testimonial-container {
-  max-width: 800px;
   margin: 50px auto 0;
   position: relative;
+  max-width: 1200px;
   overflow: hidden;
 }
 
@@ -1220,7 +1221,6 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
-  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -1377,7 +1377,6 @@ header {
 }
 
 .faq-container {
-  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -1670,14 +1669,13 @@ footer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .footer-logo {
   font-size: 24px;
   font-weight: 700;
   color: var(--light);
-  margin-bottom: 20px;
   display: inline-block;
   text-decoration: none;
 }
@@ -2184,6 +2182,10 @@ footer {
   .chat-widget {
     width: calc(100% - 40px);
     right: 20px;
+  }
+
+  .cta-buttons{
+    padding: 0;
   }
 }
 
