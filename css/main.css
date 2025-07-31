@@ -2187,6 +2187,11 @@ footer {
   .cta-buttons{
     padding: 0;
   }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    padding: 15px;
+    }
 }
 
 @media (max-width: 480px) {
