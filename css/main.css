@@ -1331,7 +1331,7 @@ header {
 
 .proof-item img {
   width: 100%;
-  height: auto;
+  height: 300px;
   border-radius: 5px;
   margin-bottom: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
