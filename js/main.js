@@ -1,221 +1,187 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll(".nav-links a");
+  // Update the current year in the footer
+  document.getElementById("currentYear").textContent = new Date().getFullYear();
 
-  // Highlight first link on page load if at top
-  if (window.scrollY === 0) {
-    document
-      .querySelector('.nav-links a[href="#hero"]')
-      .classList.add("active");
+  // Mobile menu toggle
+  const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+  const navLinks = document.querySelector(".nav-links");
+
+  if (mobileMenuBtn && navLinks) {
+    mobileMenuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+      mobileMenuBtn.textContent = navLinks.classList.contains("show")
+        ? "✕"
+        : "☰";
+    });
   }
 
-  window.addEventListener("scroll", function () {
-    let current = "";
-
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-
-      if (pageYOffset >= sectionTop - sectionHeight / 3) {
-        current = section.getAttribute("id");
+  // Smooth scrolling for navigation links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      if (this.getAttribute("href") === "#affiliate-link") {
+        e.preventDefault();
+        // In a real implementation, this would redirect to your affiliate link
+        alert("Redirecting to affiliate application...");
+        return;
       }
-    });
 
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === `#${current}`) {
-        link.classList.add("active");
-      }
-    });
-  });
-
-  // Smooth scrolling for anchor links
-  navLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
       e.preventDefault();
       const targetId = this.getAttribute("href");
-      const targetSection = document.querySelector(targetId);
+      if (targetId === "#") return;
 
-      window.scrollTo({
-        top: targetSection.offsetTop,
-        behavior: "smooth",
-      });
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: "smooth",
+        });
+
+        // Close mobile menu after click
+        if (window.innerWidth <= 992) {
+          navLinks.classList.remove("show");
+          mobileMenuBtn.textContent = "☰";
+        }
+      }
     });
   });
-});
 
-// Mobile menu toggle
-const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
-const navLinks = document.querySelector(".nav-links");
+  // Active section indicator for navigation
+  const sections = document.querySelectorAll("section");
+  const navItems = document.querySelectorAll(".nav-links li a");
 
-if (mobileMenuBtn && navLinks) {
-  mobileMenuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("show");
-    mobileMenuBtn.textContent = navLinks.classList.contains("show") ? "✕" : "☰";
-  });
-}
+  function setActiveSection() {
+    let currentSection = "";
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    if (this.getAttribute("href") === "#affiliate-link") {
-      e.preventDefault();
-      alert(
-        "This would redirect to your affiliate link. Replace #affiliate-link with your actual link in the HTML."
-      );
-      return;
-    }
-
-    e.preventDefault();
-    const targetId = this.getAttribute("href");
-    if (targetId === "#") return;
-
-    const targetElement = document.querySelector(targetId);
-    if (targetElement) {
-      window.scrollTo({
-        top: targetElement.offsetTop - 80,
-        behavior: "smooth",
-      });
-
-      // Close mobile menu after click
-      if (window.innerWidth <= 768) {
-        navLinks.classList.remove("show");
-        mobileMenuBtn.textContent = "☰";
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - 100;
+      if (window.pageYOffset >= sectionTop) {
+        currentSection = section.getAttribute("id");
       }
-    }
-  });
-});
+    });
 
-// Active section indicator for navigation
-const sections = document.querySelectorAll("section");
-const navItems = document.querySelectorAll(".nav-links li a");
-const activeIndicator = document.querySelector(".active-indicator");
-
-function setActiveSection() {
-  let currentSection = "";
-
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop - 100;
-    if (window.pageYOffset >= sectionTop) {
-      currentSection = section.getAttribute("id");
-    }
-  });
-
-  // Update navigation links
-  navItems.forEach((item) => {
-    item.classList.remove("active");
-    if (item.getAttribute("href") === `#${currentSection}`) {
-      item.classList.add("active");
-
-      // Update indicator position
-      const activeItem = item.parentElement;
-      const itemLeft = activeItem.offsetLeft;
-      const itemWidth = activeItem.offsetWidth;
-
-      if (activeIndicator) {
-        activeIndicator.style.width = `${itemWidth}px`;
-        activeIndicator.style.left = `${itemLeft}px`;
-        activeIndicator.style.opacity = "1";
+    // Update navigation links
+    navItems.forEach((item) => {
+      item.classList.remove("active");
+      if (item.getAttribute("href") === `#${currentSection}`) {
+        item.classList.add("active");
       }
-    }
-  });
-
-  // Hide indicator if no active section
-  if (!currentSection && activeIndicator) {
-    activeIndicator.style.opacity = "0";
+    });
   }
-}
 
-// Testimonial Slider
-const testimonials = document.querySelectorAll(".testimonial");
-const dotsContainer = document.querySelector(".slider-dots");
-let currentIndex = 0;
-let interval;
+  // Set initial active section and add scroll event listener
+  setActiveSection();
+  window.addEventListener("scroll", setActiveSection);
 
-// Create navigation dots dynamically
-function createDots() {
-  testimonials.forEach((_, index) => {
-    const dot = document.createElement("span");
-    dot.classList.add("dot");
-    if (index === 0) dot.classList.add("active");
-    dot.dataset.index = index;
-    dotsContainer.appendChild(dot);
-  });
-}
+  // Cash back calculator functionality
+  const premiumInput = document.getElementById("premium-input");
+  const calculateBtn = document.getElementById("calculate-btn");
+  const cashbackAmount = document.getElementById("cashback-amount");
 
-function showTestimonial(index) {
-  // Hide all testimonials with sliding out animation
-  testimonials.forEach((testimonial) => {
-    if (testimonial.classList.contains("active")) {
-      testimonial.style.animation = "slideOut 0.5s ease forwards";
-      setTimeout(() => {
-        testimonial.classList.remove("active");
-        testimonial.style.animation = "";
-      }, 500);
+  function calculateCashback() {
+    const premium = parseFloat(premiumInput.value) || 0;
+    const cashback = premium * 0.25; // 25% cash back
+    cashbackAmount.textContent = `₹${cashback.toLocaleString("en-IN")}`;
+  }
+
+  calculateBtn.addEventListener("click", calculateCashback);
+  premiumInput.addEventListener("keyup", function (e) {
+    if (e.key === "Enter") {
+      calculateCashback();
     }
   });
 
-  // Show current testimonial with sliding in animation
-  setTimeout(() => {
-    testimonials[index].classList.add("active");
-  }, 500);
+  // Initialize calculator with example value
+  premiumInput.value = "100000";
+  calculateCashback();
 
-  // Update dots
-  const dots = document.querySelectorAll(".dot");
-  dots.forEach((dot) => {
-    dot.classList.remove("active");
-  });
-  dots[index].classList.add("active");
+  // Testimonial Slider
+  const testimonials = document.querySelectorAll(".testimonial");
+  const dotsContainer = document.querySelector(".slider-dots");
+  let currentIndex = 0;
+  let interval;
 
-  currentIndex = index;
-}
+  // Create navigation dots dynamically
+  function createDots() {
+    testimonials.forEach((_, index) => {
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      if (index === 0) dot.classList.add("active");
+      dot.dataset.index = index;
+      dotsContainer.appendChild(dot);
+    });
+  }
 
-// Initialize dots and event listeners
-function initSlider() {
-  createDots();
+  function showTestimonial(index) {
+    // Hide all testimonials with sliding out animation
+    testimonials.forEach((testimonial) => {
+      if (testimonial.classList.contains("active")) {
+        testimonial.style.animation = "slideOut 0.5s ease forwards";
+        setTimeout(() => {
+          testimonial.classList.remove("active");
+          testimonial.style.animation = "";
+        }, 500);
+      }
+    });
 
-  // Dot navigation
-  dotsContainer.addEventListener("click", (e) => {
-    if (e.target.classList.contains("dot")) {
-      const index = parseInt(e.target.dataset.index);
-      showTestimonial(index);
-      resetInterval();
-    }
-  });
+    // Show current testimonial with sliding in animation
+    setTimeout(() => {
+      testimonials[index].classList.add("active");
+    }, 500);
 
-  showTestimonial(0);
-  resetInterval();
-}
+    // Update dots
+    const dots = document.querySelectorAll(".dot");
+    dots.forEach((dot) => {
+      dot.classList.remove("active");
+    });
+    dots[index].classList.add("active");
 
-function nextTestimonial() {
-  currentIndex = (currentIndex + 1) % testimonials.length;
-  showTestimonial(currentIndex);
-}
+    currentIndex = index;
+  }
 
-function resetInterval() {
-  clearInterval(interval);
-  interval = setInterval(nextTestimonial, 5000);
-}
+  // Initialize dots and event listeners
+  function initSlider() {
+    createDots();
 
-// Initialize slider
-initSlider();
+    // Dot navigation
+    dotsContainer.addEventListener("click", (e) => {
+      if (e.target.classList.contains("dot")) {
+        const index = parseInt(e.target.dataset.index);
+        showTestimonial(index);
+        resetInterval();
+      }
+    });
 
-// Pause on hover
-const sliderContainer = document.querySelector(".testimonial-container");
-if (sliderContainer) {
-  sliderContainer.addEventListener("mouseenter", () => {
-    clearInterval(interval);
-  });
-
-  sliderContainer.addEventListener("mouseleave", () => {
+    showTestimonial(0);
     resetInterval();
-  });
-}
+  }
 
-// FAQ functionality with transitions
-document.addEventListener("DOMContentLoaded", function () {
+  function nextTestimonial() {
+    currentIndex = (currentIndex + 1) % testimonials.length;
+    showTestimonial(currentIndex);
+  }
+
+  function resetInterval() {
+    clearInterval(interval);
+    interval = setInterval(nextTestimonial, 5000);
+  }
+
+  // Initialize slider
+  initSlider();
+
+  // Pause on hover
+  const sliderContainer = document.querySelector(".testimonial-container");
+  if (sliderContainer) {
+    sliderContainer.addEventListener("mouseenter", () => {
+      clearInterval(interval);
+    });
+
+    sliderContainer.addEventListener("mouseleave", () => {
+      resetInterval();
+    });
+  }
+
+  // FAQ functionality
   const questions = document.querySelectorAll(".faq-question");
-  const answers = document.querySelectorAll(".faq-answer");
 
   function isMobileView() {
     return window.innerWidth <= 992;
@@ -252,6 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
       questions.forEach((q) => q.classList.remove("active"));
       question.classList.add("active");
 
+      const answers = document.querySelectorAll(".faq-answer");
       answers.forEach((answer) => {
         answer.classList.remove("active");
         if (answer.id === targetId) {
@@ -263,6 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize mobile answers if in mobile view
   if (isMobileView()) {
+    const answers = document.querySelectorAll(".faq-answer");
     answers.forEach((answer) => {
       const question = document.querySelector(
         `.faq-question[data-target="${answer.id}"]`
@@ -285,6 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("resize", function () {
     if (isMobileView()) {
       // Switch to mobile view
+      const answers = document.querySelectorAll(".faq-answer");
       answers.forEach((answer) => {
         const question = document.querySelector(
           `.faq-question[data-target="${answer.id}"]`
@@ -300,10 +269,8 @@ document.addEventListener("DOMContentLoaded", function () {
           question.insertAdjacentElement("afterend", mobileAnswer);
         }
       });
-      document.querySelector(".faq-answers").style.display = "none";
     } else {
       // Switch to desktop view
-      document.querySelector(".faq-answers").style.display = "block";
       const mobileAnswers = document.querySelectorAll(".mobile-answer");
       mobileAnswers.forEach((answer) => answer.remove());
 
@@ -314,199 +281,288 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Initialize first question
-  if (questions.length > 0) {
-    if (!isMobileView()) {
-      questions[0].click(); // Desktop - show first answer
-    } else {
-      // Mobile - prepare answers but don't show any by default
-      questions[0].classList.remove("active");
-    }
+  // Countdown timer for CTA section
+  function updateCountdown() {
+    const now = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(23, 59, 59, 0);
+
+    const diff = tomorrow - now;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById("days").textContent = days
+      .toString()
+      .padStart(2, "0");
+    document.getElementById("hours").textContent = hours
+      .toString()
+      .padStart(2, "0");
+    document.getElementById("minutes").textContent = minutes
+      .toString()
+      .padStart(2, "0");
+    document.getElementById("seconds").textContent = seconds
+      .toString()
+      .padStart(2, "0");
   }
-});
 
-// Set initial active section and add scroll event listener
-setActiveSection();
-window.addEventListener("scroll", setActiveSection);
+  // Update countdown every second
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 
-// Animation for stats counter
-function animateStats() {
-  const statNumbers = document.querySelectorAll(".stat-number");
+  // Animation for stats counter
+  function animateStats() {
+    const statNumbers = document.querySelectorAll(".stat-number");
 
-  statNumbers.forEach((statNumber) => {
-    if (!statNumber.dataset.animated) {
-      const originalText = statNumber.textContent;
+    statNumbers.forEach((statNumber) => {
+      if (!statNumber.dataset.animated) {
+        const originalText = statNumber.textContent;
 
-      // Extract components from the original text
-      const match = originalText.match(/^([\d.]+)(.*)$/);
-      if (!match) return;
+        // Extract components from the original text
+        const match = originalText.match(/^([\d.]+)(.*)$/);
+        if (!match) return;
 
-      const targetNumber = parseFloat(match[1]);
-      const suffix = match[2] || "";
+        const targetNumber = parseFloat(match[1].replace(/,/g, ""));
+        const suffix = match[2] || "";
 
-      let current = 0;
-      const increment = targetNumber / 100; // Controls animation speed
-      const isDecimal = originalText.includes(".");
+        let current = 0;
+        const increment = targetNumber / 100; // Controls animation speed
+        const isDecimal = originalText.includes(".");
 
-      const timer = setInterval(() => {
-        current += increment;
+        const timer = setInterval(() => {
+          current += increment;
 
-        if (current >= targetNumber) {
-          clearInterval(timer);
-          statNumber.textContent = originalText; // Show exact original text
-          statNumber.dataset.animated = true;
-        } else {
-          // Format the currently animating number
-          let displayNumber;
-          if (isDecimal) {
-            displayNumber = current.toFixed(1); // For decimals like 4.5/5
+          if (current >= targetNumber) {
+            clearInterval(timer);
+            statNumber.textContent = originalText; // Show exact original text
+            statNumber.dataset.animated = true;
           } else {
-            displayNumber = Math.floor(current); // For whole numbers
+            // Format the currently animating number
+            let displayNumber;
+            if (isDecimal) {
+              displayNumber = current.toFixed(1); // For decimals like 4.5/5
+            } else {
+              displayNumber = Math.floor(current); // For whole numbers
+            }
+            statNumber.textContent =
+              displayNumber.toLocaleString("en-IN") + suffix;
           }
-          statNumber.textContent = displayNumber + suffix; // Keep suffix during animation
-        }
-      }, 20);
-    }
-  });
-}
-
-// Trigger animation when stats section comes into view
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        animateStats();
-        observer.unobserve(entry.target); // Stop observing after triggering
+        }, 20);
       }
     });
-  },
-  { threshold: 0.1 }
-);
-
-// Start observing the stats section
-const statsSection = document.querySelector(".stats");
-if (statsSection) {
-  observer.observe(statsSection);
-}
-
-// Scroll to top button functionality
-const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-const scrollPercentage = document.getElementById("scrollPercentage");
-
-function toggleScrollToTopButton() {
-  if (window.pageYOffset > 300) {
-    scrollToTopBtn.classList.add("show");
-  } else {
-    scrollToTopBtn.classList.remove("show");
   }
 
-  // Calculate scroll percentage
-  const scrollHeight =
-    document.documentElement.scrollHeight -
-    document.documentElement.clientHeight;
-  const scrolled = (window.pageYOffset / scrollHeight) * 100;
-  scrollPercentage.textContent = Math.round(scrolled) + "%";
-}
+  // Trigger animation when stats section comes into view
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateStats();
+          observer.unobserve(entry.target); // Stop observing after triggering
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
 
-scrollToTopBtn.addEventListener("click", function () {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
+  // Start observing the stats section
+  const statsSection = document.querySelector(".stats");
+  if (statsSection) {
+    observer.observe(statsSection);
+  }
+
+  // Scroll to top button functionality
+  const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+  const scrollPercentage = document.getElementById("scrollPercentage");
+
+  function toggleScrollToTopButton() {
+    if (window.pageYOffset > 300) {
+      scrollToTopBtn.classList.add("show");
+    } else {
+      scrollToTopBtn.classList.remove("show");
+    }
+
+    // Calculate scroll percentage
+    const scrollHeight =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+    const scrolled = (window.pageYOffset / scrollHeight) * 100;
+    scrollPercentage.textContent = Math.round(scrolled) + "%";
+  }
+
+  scrollToTopBtn.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   });
+
+  window.addEventListener("scroll", toggleScrollToTopButton);
+
+  // Chat widget functionality
+  const chatWidget = document.querySelector(".chat-widget");
+  const chatToggle = document.querySelector(".chat-toggle");
+  const chatClose = document.querySelector(".chat-close");
+
+  if (chatWidget && chatToggle && chatClose) {
+    // Show chat widget after delay
+    setTimeout(() => {
+      chatWidget.classList.add("open");
+      chatToggle.classList.add("hide");
+    }, 10000);
+
+    // Toggle chat widget
+    chatToggle.addEventListener("click", () => {
+      chatWidget.classList.add("open");
+      chatToggle.classList.add("hide");
+    });
+
+    // Close chat widget
+    chatClose.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent event bubbling
+      chatWidget.classList.remove("open");
+      chatToggle.classList.remove("hide");
+    });
+
+    // Close when clicking outside (optional)
+    document.addEventListener("click", (e) => {
+      if (!chatWidget.contains(e.target) && e.target !== chatToggle) {
+        chatWidget.classList.remove("open");
+        chatToggle.classList.remove("hide");
+      }
+    });
+
+    // Chat options
+    const chatOptions = document.querySelectorAll(".chat-option");
+    chatOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        // Your chat option functionality
+        alert(
+          "This feature would connect you to a live agent in the full implementation."
+        );
+      });
+    });
+  }
+
+  // Lead form submission
+  const leadForm = document.getElementById("lead-form");
+  if (leadForm) {
+    leadForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert(
+        "Thank you! We'll contact you shortly with your cash back estimate."
+      );
+      this.reset();
+    });
+  }
+
+  // Insurance comparison filter functionality
+  const filterBtn = document.querySelector(".filter-btn");
+  if (filterBtn) {
+    filterBtn.addEventListener("click", function () {
+      alert(
+        "In a full implementation, this would filter the insurance plans based on your selection."
+      );
+    });
+  }
+
+  // Agent search functionality
+  const agentSearchBtn = document.querySelector(".search-btn");
+  if (agentSearchBtn) {
+    agentSearchBtn.addEventListener("click", function () {
+      alert(
+        "In a full implementation, this would search for agents in your area."
+      );
+    });
+  }
 });
 
-window.addEventListener("scroll", toggleScrollToTopButton);
-
 // Blogger Feed Integration
-document.addEventListener("DOMContentLoaded", function () {
-  // Configuration - Replace with your blog details
-  const BLOG_URL = "https://blog.prabhat.info.np";
-  const POSTS_TO_SHOW = 3; // Number of posts to display
-  const EXCERPT_LENGTH = 120; // Character length for excerpts
-
-  async function fetchBlogPosts() {
-    try {
-      // Using JSONP approach to avoid CORS issues
-      const callbackName = "handleBloggerResponse" + Date.now();
-      window[callbackName] = function (data) {
-        displayPosts(data.feed.entry);
-        delete window[callbackName];
-      };
-
-      const script = document.createElement("script");
-      script.src = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&callback=${callbackName}`;
-      script.onerror = () => {
-        document.getElementById("blog-posts").innerHTML = `
+document.addEventListener("DOMContentLoaded", function() {
+    // Configuration
+    const BLOG_URL = 'https://blog.prabhat.info.np';
+    const POSTS_TO_SHOW = 3;
+    const EXCERPT_LENGTH = 120;
+    
+    async function fetchBlogPosts() {
+        try {
+            const callbackName = 'handleBloggerResponse' + Date.now();
+            window[callbackName] = function(data) {
+                displayPosts(data.feed.entry);
+                delete window[callbackName];
+            };
+            
+            const script = document.createElement('script');
+            script.src = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&callback=${callbackName}`;
+            script.onerror = () => {
+                document.getElementById('blog-posts').innerHTML = `
                     <div class="error" style="text-align:center; padding:40px; color:#e74c3c;">
-                        There is something wrong with blog posts. try again later or
+                        Could not load blog posts. 
                         <a href="${BLOG_URL}" style="color:#3498db;">Visit blog directly</a>
                     </div>`;
-      };
-      document.head.appendChild(script);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
+            };
+            document.head.appendChild(script);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+        }
     }
-  }
-
-  function displayPosts(posts) {
-    const container = document.getElementById("blog-posts");
-
-    if (!posts || posts.length === 0) {
-      container.innerHTML =
-        '<div style="text-align:center; padding:40px;">We found nothing. Refresh the page or try again later.</div>';
-      return;
-    }
-
-    let html = "";
-    posts.slice(0, POSTS_TO_SHOW).forEach((post) => {
-      const title = post.title.$t;
-      const fullContent = post.content.$t;
-      const excerpt =
-        stripHtml(fullContent).substring(0, EXCERPT_LENGTH) + "...";
-      const url = post.link.find((link) => link.rel === "alternate").href;
-      const date = new Date(post.published.$t).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-
-      // Try to find the first image in the post
-      const imgMatch = fullContent.match(/<img[^>]+src="([^">]+)"/);
-      const imageUrl = imgMatch ? imgMatch[1] : null;
-
-      html += `
+    
+    function displayPosts(posts) {
+        const container = document.getElementById('blog-posts');
+        
+        if (!posts || posts.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:40px;">No posts found.</div>';
+            return;
+        }
+        
+        let html = '';
+        posts.slice(0, POSTS_TO_SHOW).forEach(post => {
+            const title = post.title.$t;
+            const fullContent = post.content.$t;
+            const excerpt = stripHtml(fullContent).substring(0, EXCERPT_LENGTH) + '...';
+            const url = post.link.find(link => link.rel === 'alternate').href;
+            const date = new Date(post.published.$t).toLocaleDateString('en-US', {
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric'
+            });
+            
+            const imgMatch = fullContent.match(/<img[^>]+src="([^">]+)"/);
+            const imageUrl = imgMatch ? imgMatch[1] : 'images/blog-placeholder.jpg';
+            
+            html += `
                 <div class="blogs-card">
-                    ${
-                      imageUrl
-                        ? `
                     <div class="blogs-image">
                         <img src="${imageUrl}" alt="${title}" loading="lazy">
                     </div>
-                    `
-                        : ""
-                    }
                     <div class="blogs-content">
                         <h3>${title}</h3>
                         <p class="post-excerpt">${excerpt}</p>
-                        <div class="blogs-date">
-                            <span>${date}</span>
+                        <div class="blogs-footer">
+                            <div class="blogs-tech">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>${date}</span>
+                            </div>
+                            <a href="${url}" class="blogs-link" target="_blank" rel="noopener">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
-                        <a href="${url}" class="blogs-link" target="_blank" rel="noopener">Read Post</a>
                     </div>
                 </div>
             `;
-    });
-
-    container.innerHTML = html;
-  }
-
-  // Helper function to remove HTML tags
-  function stripHtml(html) {
-    const tmp = document.createElement("div");
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || "";
-  }
-
-  // Load posts when page is ready
-  fetchBlogPosts();
+        });
+        
+        container.innerHTML = html;
+    }
+    
+    function stripHtml(html) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || '';
+    }
+    
+    fetchBlogPosts();
 });
