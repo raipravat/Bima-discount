@@ -1,6 +1,4 @@
-/* ================ */
 /* === Variables === */
-/* ================ */
 :root {
   /* Colors */
   --primary: #1a3a6b;
@@ -16,38 +14,36 @@
   --gray-dark: #e1e5eb;
   --dark-gray: #95a5a6;
   --success: #27ae60;
-  
+
   /* Typography */
-  --font-main: 'Montserrat', sans-serif;
-  --font-heading: 'Playfair Display', serif;
-  
+  --font-main: "Montserrat", sans-serif;
+  --font-heading: "Playfair Display", serif;
+
   /* Spacing */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
   --space-lg: 2rem;
   --space-xl: 3rem;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  
+
   /* Border radius */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-full: 9999px;
-  
+
   /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
 }
 
-/* =============== */
 /* === Resets === */
-/* =============== */
 *,
 *::before,
 *::after {
@@ -68,7 +64,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 700;
   line-height: 1.3;
@@ -91,7 +92,8 @@ img {
   display: block;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -102,9 +104,7 @@ button {
   font-family: inherit;
 }
 
-/* ================= */
 /* === Utilities === */
-/* ================= */
 .container {
   width: clamp(150px, 90%, 1920px);
   margin: 0 auto;
@@ -135,9 +135,7 @@ button {
   margin: 0 auto;
 }
 
-/* ================ */
 /* === Buttons === */
-/* ================ */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -209,9 +207,7 @@ button {
   }
 }
 
-/* ============== */
 /* === Cards === */
-/* ============== */
 .card {
   background-color: var(--light);
   border-radius: var(--radius-md);
@@ -225,9 +221,7 @@ button {
   box-shadow: var(--shadow-lg);
 }
 
-/* =============== */
 /* === Header === */
-/* =============== */
 .top-bar {
   background-color: var(--primary);
   color: var(--light);
@@ -386,9 +380,7 @@ button {
   font-size: 0.75rem;
 }
 
-/* ============= */
 /* === Hero === */
-/* ============= */
 .hero {
   background: linear-gradient(135deg, var(--primary), var(--primary-light));
   color: var(--light);
@@ -520,9 +512,7 @@ button {
   color: var(--secondary);
 }
 
-/* =============== */
 /* === Stats === */
-/* =============== */
 .stats-section {
   background-color: var(--light);
   padding: var(--space-xl) 0;
@@ -554,9 +544,7 @@ button {
   letter-spacing: 1px;
 }
 
-/* ================= */
 /* === Partners === */
-/* ================= */
 .partners-section {
   padding: var(--space-xl) 0;
   background-color: var(--light);
@@ -590,9 +578,7 @@ button {
   filter: grayscale(0%);
 }
 
-/* ======================= */
 /* === Insurance Comparison === */
-/* ======================= */
 .comparison-section {
   padding: var(--space-xl) 0;
   background-color: var(--gray);
@@ -727,9 +713,7 @@ button {
   border-top: 1px solid var(--gray-dark);
 }
 
-/* ================= */
 /* === Benefits === */
-/* ================= */
 .benefits-section {
   padding: var(--space-xl) 0;
   background-color: var(--light);
@@ -746,7 +730,8 @@ button {
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  transition: transform var(--transition-normal),
+    box-shadow var(--transition-normal);
   padding: var(--space-lg);
   text-align: center;
   border: 1px solid var(--gray-dark);
@@ -779,9 +764,7 @@ button {
   color: var(--primary);
 }
 
-/* ================= */
 /* === Process === */
-/* ================= */
 .process-section {
   padding: var(--space-xl) 0;
   background-color: var(--gray);
@@ -900,9 +883,7 @@ button {
   color: var(--dark-gray);
 }
 
-/* ================ */
 /* === Agents === */
-/* ================ */
 .agents-section {
   padding: var(--space-xl) 0;
   background-color: var(--light);
@@ -1011,9 +992,7 @@ button {
   border-top: 1px solid var(--gray-dark);
 }
 
-/* ===================== */
 /* === Testimonials === */
-/* ===================== */
 .testimonials-section {
   padding: var(--space-xl) 0;
   background: linear-gradient(135deg, var(--primary), var(--primary-light));
@@ -1191,9 +1170,7 @@ button {
   background-color: var(--light);
 }
 
-/* ============== */
 /* === Blog === */
-/* ============== */
 .blog-section {
   padding: var(--space-xl) 0;
   background-color: var(--light);
@@ -1323,9 +1300,7 @@ button {
   color: var(--dark-gray);
 }
 
-/* ============= */
 /* === FAQ === */
-/* ============= */
 .faq-section {
   padding: var(--space-xl) 0;
   background-color: var(--light);
@@ -1466,9 +1441,7 @@ button {
   }
 }
 
-/* ================ */
 /* === CTA === */
-/* ================ */
 .cta-section {
   padding: var(--space-xl) 0;
   background: url("images/cta-bg.jpg") no-repeat center center/cover;
@@ -1546,9 +1519,7 @@ button {
   text-transform: uppercase;
 }
 
-/* ================= */
 /* === Contact === */
-/* ================= */
 .contact-section {
   padding: var(--space-xl) 0;
   background-color: var(--gray);
@@ -1663,9 +1634,7 @@ button {
   width: auto;
 }
 
-/* ================ */
 /* === Footer === */
-/* ================ */
 .footer {
   background-color: var(--primary);
   color: var(--light);
@@ -1728,9 +1697,7 @@ button {
   color: var(--light);
 }
 
-/* ======================= */
 /* === Scroll to Top === */
-/* ======================= */
 .scroll-to-top {
   position: fixed;
   bottom: var(--space-lg);
@@ -1769,9 +1736,7 @@ button {
   margin-top: 2px;
 }
 
-/* ================== */
 /* === Chat Widget === */
-/* ================== */
 .chat-widget {
   position: fixed;
   bottom: var(--space-lg);
