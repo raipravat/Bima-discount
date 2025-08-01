@@ -3,30 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Merobima | Insurance Call Center & Cash Back on Life Insurance
-    </title>
-    <meta
-      name="description"
-      content="Get up to 25% cash back on your life insurance policy with Merobima. Our professional call center provides expert insurance advice and support."
-    />
-    <meta
-      name="keywords"
-      content="insurance call center, life insurance, cash back, insurance advice, family protection, financial security, insurance benefits, Merobima"
-    />
+    <title>Merobima | Insurance Call Center & Cash Back on Life Insurance</title>
+    <meta name="description" content="Get up to 25% cash back on your life insurance policy with Merobima. Our professional call center provides expert insurance advice and support." />
+    <meta name="keywords" content="insurance call center, life insurance, cash back, insurance advice, family protection, financial security, insurance benefits, Merobima" />
     <meta name="author" content="Merobima Team" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" as="style" />
+    <link rel="preload" href="css/main.css" as="style" />
+    <link rel="preload" href="js/main.js" as="script" />
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet" />
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="css/main.css" />
-    <link rel="icon" href="images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/about.css" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/logo.png" type="image/png" />
+    
     <!-- Structured data for SEO -->
     <script type="application/ld+json">
       {
@@ -51,110 +53,119 @@
   </head>
 
   <body>
-    <!-- Header Section -->
-    <header>
-      <div class="container header-container">
-        <div class="header-left">
-          <a href="#" class="logo">Mero<span>Bima</span></a>
-          <span class="tagline">Your Trusted Insurance Partner</span>
-        </div>
-        <div class="header-right">
-          <button class="mobile-menu-btn">☰</button>
-          <ul class="nav-links">
-            <li><a href="#hero" class="active">Home</a></li>
-            <li class="dropdown">
-              <a href="#insurance"
-                >Insurance <i class="fas fa-chevron-down"></i
-              ></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Life Insurance</a></li>
-                <li><a href="#">Health Insurance</a></li>
-                <li><a href="#">Vehicle Insurance</a></li>
-                <li><a href="#">Travel Insurance</a></li>
-              </ul>
-            </li>
-            <li><a href="#benefits">Cash Back</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#agents">Find Agent</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </header>
-
-    <!-- Contact Info -->
+    <!-- Top Contact Bar -->
     <div class="top-bar">
-      <div class="container top-bar-content">
-        <div class="call-center-info">
-          <i class="fas fa-phone-alt"></i>
-          <span>Call Center:</span>
-          <a href="tel:+9779800000000">+977 9800000000</a>
-        </div>
-        <div class="top-bar-links">
-          <a href="#"><i class="fas fa-map-marker-alt"></i> Branch Locator</a>
-          <a href="#"><i class="fas fa-user-tie"></i> Agent Login</a>
+      <div class="container">
+        <div class="top-bar__content">
+          <div class="top-bar__contact">
+            <i class="fas fa-phone-alt"></i>
+            <span>Call Center:</span>
+            <a href="tel:+9779800000000">+977 9800000000</a>
+          </div>
+          <div class="top-bar__links">
+            <a href="#"><i class="fas fa-map-marker-alt"></i> Branch Locator</a>
+            <a href="#"><i class="fas fa-user-tie"></i> Agent Login</a>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header__content">
+          <div class="header__brand">
+            <a href="index.html" class="logo">Mero<span>Bima</span></a>
+            <span class="tagline">Your Trusted Insurance Partner</span>
+          </div>
+          
+          <button class="mobile-menu-btn" aria-label="Toggle navigation">☰</button>
+          
+          <nav class="main-nav">
+            <ul class="nav-links">
+              <li><a href="#hero" class="active">Home</a></li>
+              <li class="dropdown">
+                <a href="#insurance">Insurance <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                  <li><a href="life-insurance.html">Life Insurance</a></li>
+                  <li><a href="health-insurance.html">Health Insurance</a></li>
+                  <li><a href="vehicle-insurance.html">Vehicle Insurance</a></li>
+                  <li><a href="travel-insurance.html">Travel Insurance</a></li>
+                </ul>
+              </li>
+              <li><a href="#benefits">Cash Back</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#agents">Find Agent</a></li>
+              <li><a href="blog.html">Blog</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
     <!-- Hero Section -->
     <section class="hero" id="hero">
       <div class="container">
-        <div class="hero-content">
-          <h1>Get Up To 25% Cash Back</h1>
-          <h2>on Your Life Insurance Policy</h2>
-          <p class="subtitle">
-            Protect your family & put money back in your pocket. Our exclusive
-            offer gives you cash rewards when you buy through us.
-          </p>
+        <div class="hero__grid">
+          <div class="hero__content">
+            <h1 class="hero__title">Get Up To 25% Cash Back</h1>
+            <h2 class="hero__subtitle">on Your Life Insurance Policy</h2>
+            <p class="hero__text">
+              Protect your family & put money back in your pocket. Our exclusive
+              offer gives you cash rewards when you buy through us.
+            </p>
 
-          <div class="cashback-calculator">
-            <h4>Calculate Your Potential Cash Back:</h4>
-            <div class="calculator-input">
-              <span>₹</span>
-              <input
-                type="number"
-                id="premium-input"
-                placeholder="Annual Premium Amount"
-              />
-              <button id="calculate-btn">Calculate</button>
+            <div class="cashback-calculator">
+              <h4 class="calculator-title">Calculate Your Potential Cash Back:</h4>
+              <div class="calculator-input">
+                <span>₹</span>
+                <input
+                  type="number"
+                  id="premium-input"
+                  placeholder="Annual Premium Amount"
+                  aria-label="Enter annual premium amount"
+                />
+                <button id="calculate-btn" class="btn btn--primary">Calculate</button>
+              </div>
+              <div class="calculator-result">
+                Your estimated cash back: <span id="cashback-amount">₹0</span>
+              </div>
             </div>
-            <div class="calculator-result">
-              Your estimated cash back: <span id="cashback-amount">₹0</span>
+
+            <div class="hero__cta">
+              <div class="cta-buttons">
+                <a href="#affiliate-link" class="btn btn--primary btn--icon">
+                  <i class="fas fa-wallet"></i> Claim Your Cash Back
+                </a>
+                <a href="tel:+9779800000000" class="btn btn--secondary btn--icon">
+                  <i class="fas fa-phone"></i> Speak to Our Team
+                </a>
+              </div>
             </div>
           </div>
 
-          <div class="hero-cta">
-            <div class="cta-buttons">
-              <a href="#affiliate-link" class="btn btn-primary">
-                <i class="fas fa-wallet"></i> Claim Your Cash Back
-              </a>
-              <a href="tel:+9779800000000" class="btn btn-secondary">
-                <i class="fas fa-phone"></i> Speak to Our Team
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-image">
-          <img
-            src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-            alt="Happy family receiving insurance benefits"
-            loading="eager"
-          />
-          <div class="call-center-features">
-            <div class="feature-item">
-              <i class="fas fa-rupee-sign"></i> Guaranteed Cash Back
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-check-circle"></i> No Extra Cost
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-shield-alt"></i> Same Great Coverage
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-users"></i> Trusted by Thousands
+          <div class="hero__image">
+            <img
+              src="images/Happy-family.webp"
+              alt="Happy family receiving insurance benefits"
+              loading="eager"
+              width="600"
+              height="400"
+            />
+            <div class="hero__features">
+              <div class="feature-item">
+                <i class="fas fa-rupee-sign"></i> Guaranteed Cash Back
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-check-circle"></i> No Extra Cost
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-shield-alt"></i> Same Great Coverage
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-users"></i> Trusted by Thousands
+              </div>
             </div>
           </div>
         </div>
@@ -162,65 +173,51 @@
     </section>
 
     <!-- Stats Section -->
-    <section class="stats">
-      <div class="container stats-container">
-        <div class="stat-item">
-          <div class="stat-number">500+</div>
-          <div class="stat-label">Happy Families</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">25 Lakh+</div>
-          <div class="stat-label">Paid in Cash Back</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">25%</div>
-          <div class="stat-label">Maximum Reward</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">4.8/5</div>
-          <div class="stat-label">Customer Rating</div>
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" data-count="500">0</div>
+            <div class="stat-label">Happy Families</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="25">0</div>
+            <div class="stat-label">Lakh+ Paid in Cash Back</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="25">0</div>
+            <div class="stat-label">Maximum Reward</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="4.8">0</div>
+            <div class="stat-label">Customer Rating</div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Partner Logos -->
-    <section class="partners">
+    <section class="partners-section">
       <div class="container">
-        <h3>Trusted by leading insurance providers:</h3>
-        <div class="partner-logos">
-          <img
-            src="images/Partner/Ne.png"
-            alt="Nepal Life Insurance"
-            loading="lazy"
-          />
-          <img
-            src="images/Partner/Na.jpg"
-            alt="National Life Insurance"
-            loading="lazy"
-          />
-          <img
-            src="images/Partner/Jyoti.png"
-            alt="Jyoti Life Insurance"
-            loading="lazy"
-          />
-          <img
-            src="images/Partner/Meta.png"
-            alt="MetLife Insurance"
-            loading="lazy"
-          />
+        <h3 class="partners-title">Trusted by leading insurance providers:</h3>
+        <div class="partners-grid">
+          <img src="images/partners/nepal-life.png" alt="Nepal Life Insurance" loading="lazy" width="120" height="60" />
+          <img src="images/partners/national-life.png" alt="National Life Insurance" loading="lazy" width="120" height="60" />
+          <img src="images/partners/jyoti-life.png" alt="Jyoti Life Insurance" loading="lazy" width="120" height="60" />
+          <img src="images/partners/metlife.png" alt="MetLife Insurance" loading="lazy" width="120" height="60" />
         </div>
       </div>
     </section>
 
     <!-- Insurance Comparison Tool -->
-    <section class="comparison-tool" id="insurance">
+    <section class="comparison-section" id="insurance">
       <div class="container">
-        <div class="section-title">
-          <h2>Compare <span class="highlight">Insurance Plans</span></h2>
-          <p>Find the perfect insurance plan for your needs and budget</p>
+        <div class="section-header">
+          <h2 class="section-title">Compare <span class="highlight">Insurance Plans</span></h2>
+          <p class="section-subtitle">Find the perfect insurance plan for your needs and budget</p>
         </div>
 
-        <div class="comparison-container">
+        <div class="comparison-tool">
           <div class="comparison-filters">
             <div class="filter-group">
               <label for="insurance-type">Insurance Type</label>
@@ -243,7 +240,7 @@
               </select>
             </div>
 
-            <button class="filter-btn">Filter Plans</button>
+            <button class="btn btn--primary filter-btn">Filter Plans</button>
           </div>
 
           <div class="comparison-results">
@@ -271,8 +268,8 @@
                 </div>
               </div>
               <div class="plan-actions">
-                <a href="#" class="btn btn-secondary">Details</a>
-                <a href="#" class="btn btn-primary">Apply Now</a>
+                <a href="#" class="btn btn--outline">Details</a>
+                <a href="#" class="btn btn--primary">Apply Now</a>
               </div>
             </div>
 
@@ -300,8 +297,8 @@
                 </div>
               </div>
               <div class="plan-actions">
-                <a href="#" class="btn btn-secondary">Details</a>
-                <a href="#" class="btn btn-primary">Apply Now</a>
+                <a href="#" class="btn btn--outline">Details</a>
+                <a href="#" class="btn btn--primary">Apply Now</a>
               </div>
             </div>
 
@@ -329,8 +326,8 @@
                 </div>
               </div>
               <div class="plan-actions">
-                <a href="#" class="btn btn-secondary">Details</a>
-                <a href="#" class="btn btn-primary">Apply Now</a>
+                <a href="#" class="btn btn--outline">Details</a>
+                <a href="#" class="btn btn--primary">Apply Now</a>
               </div>
             </div>
           </div>
@@ -339,15 +336,12 @@
     </section>
 
     <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
+    <section class="benefits-section" id="benefits">
       <div class="container">
-        <div class="section-title">
-          <h2>
-            Why Choose Our<span class="highlight"> Cash Back Program</span>
-          </h2>
-          <p>
-            Get the same great coverage while earning significant cash rewards
-            on your policy
+        <div class="section-header">
+          <h2 class="section-title">Why Choose Our<span class="highlight"> Cash Back Program</span></h2>
+          <p class="section-subtitle">
+            Get the same great coverage while earning significant cash rewards on your policy
           </p>
         </div>
 
@@ -435,18 +429,18 @@
     </section>
 
     <!-- How It Works Section -->
-    <section class="how-it-works" id="how-it-works">
+    <section class="process-section" id="how-it-works">
       <div class="container">
-        <div class="section-title">
-          <h2>How To Get <span class="highlight">Your Cash Back</span></h2>
-          <p>
+        <div class="section-header">
+          <h2 class="section-title">How To Get <span class="highlight">Your Cash Back</span></h2>
+          <p class="section-subtitle">
             It takes just minutes to secure your family's future and claim your
             reward
           </p>
         </div>
 
         <div class="process-timeline">
-          <div class="timeline-item benefit-card">
+          <div class="timeline-item">
             <div class="timeline-icon">1</div>
             <div class="timeline-content">
               <h3>Apply Through Us</h3>
@@ -457,8 +451,7 @@
             </div>
           </div>
 
-          <div class="timeline-arrow">→</div>
-          <div class="timeline-item benefit-card">
+          <div class="timeline-item">
             <div class="timeline-icon">2</div>
             <div class="timeline-content">
               <h3>Get Approved</h3>
@@ -467,8 +460,7 @@
             </div>
           </div>
 
-          <div class="timeline-arrow">→</div>
-          <div class="timeline-item benefit-card">
+          <div class="timeline-item">
             <div class="timeline-icon">3</div>
             <div class="timeline-content">
               <h3>Receive Cash</h3>
@@ -480,7 +472,7 @@
           </div>
         </div>
 
-        <div class="video-explainer">
+        <div class="video-section">
           <div class="video-container">
             <div class="video-placeholder">
               <i class="fas fa-play"></i>
@@ -493,7 +485,7 @@
               See exactly how our cash back program works and how much you could
               save on your life insurance policy.
             </p>
-            <a href="#affiliate-link" class="btn btn-primary">
+            <a href="#affiliate-link" class="btn btn--primary btn--icon">
               <i class="fas fa-wallet"></i> Start Your Application
             </a>
           </div>
@@ -502,20 +494,21 @@
     </section>
 
     <!-- Agent Finder Section -->
-    <section class="agent-finder" id="agents">
+    <section class="agents-section" id="agents">
       <div class="container">
-        <div class="section-title">
-          <h2>Find a <span class="highlight">Local Agent</span></h2>
-          <p>Connect with licensed insurance agents in your area</p>
+        <div class="section-header">
+          <h2 class="section-title">Find a <span class="highlight">Local Agent</span></h2>
+          <p class="section-subtitle">Connect with licensed insurance agents in your area</p>
         </div>
 
-        <div class="agent-search">
+        <div class="agent-finder">
           <div class="search-box">
             <input
               type="text"
               placeholder="Enter your location (city or postal code)"
+              aria-label="Enter location to find agents"
             />
-            <button class="search-btn">
+            <button class="btn btn--primary btn--icon">
               <i class="fas fa-search"></i> Find Agents
             </button>
           </div>
@@ -524,9 +517,11 @@
             <div class="agent-card">
               <div class="agent-photo">
                 <img
-                  src="images/agent1.jpg"
-                  alt="Insurance Agent"
+                  src="images/agents/rajesh-sharma.jpg"
+                  alt="Insurance Agent Rajesh Sharma"
                   loading="lazy"
+                  width="300"
+                  height="200"
                 />
               </div>
               <div class="agent-info">
@@ -548,10 +543,10 @@
                 </div>
               </div>
               <div class="agent-actions">
-                <a href="#" class="btn btn-secondary">
+                <a href="#" class="btn btn--outline btn--icon">
                   <i class="fas fa-envelope"></i> Message
                 </a>
-                <a href="#" class="btn btn-primary">
+                <a href="#" class="btn btn--primary btn--icon">
                   <i class="fas fa-phone"></i> Call Now
                 </a>
               </div>
@@ -560,9 +555,11 @@
             <div class="agent-card">
               <div class="agent-photo">
                 <img
-                  src="images/agent2.jpg"
-                  alt="Insurance Agent"
+                  src="images/agents/priya-gurung.jpg"
+                  alt="Insurance Agent Priya Gurung"
                   loading="lazy"
+                  width="300"
+                  height="200"
                 />
               </div>
               <div class="agent-info">
@@ -584,10 +581,10 @@
                 </div>
               </div>
               <div class="agent-actions">
-                <a href="#" class="btn btn-secondary">
+                <a href="#" class="btn btn--outline btn--icon">
                   <i class="fas fa-envelope"></i> Message
                 </a>
-                <a href="#" class="btn btn-primary">
+                <a href="#" class="btn btn--primary btn--icon">
                   <i class="fas fa-phone"></i> Call Now
                 </a>
               </div>
@@ -598,167 +595,183 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
+    <section class="testimonials-section" id="testimonials">
       <div class="container">
-        <div class="section-title">
-          <h2>What Our <span class="highlight">Clients Say</span></h2>
-          <p>
-            Hear from families who've protected their loved ones and earned cash
-            back
+        <div class="section-header">
+          <h2 class="section-title">What Our <span class="highlight">Clients Say</span></h2>
+          <p class="section-subtitle">
+            Hear from families who've protected their loved ones and earned cash back
           </p>
         </div>
 
-        <div class="testimonial-container">
-          <div class="testimonial-slider">
-            <!-- Testimonial 1 -->
-            <div class="testimonial active">
-              <div class="testimonial-content">
-                <div class="testimonial-author">
-                  <img
-                    src="images/testimonial-1.jpg"
-                    alt="Hari Khadka"
-                    loading="lazy"
-                  />
-                  <div>
-                    <span class="author-name">Hari Khadka</span>
-                    <span class="author-role">Businessman</span>
-                    <div class="author-rating">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </div>
+        <div class="testimonial-slider">
+          <!-- Testimonial 1 -->
+          <div class="testimonial active">
+            <div class="testimonial-content">
+              <div class="testimonial-author">
+                <img
+                  src="images/testimonials/hari-khadka.jpg"
+                  alt="Hari Khadka"
+                  loading="lazy"
+                  width="80"
+                  height="80"
+                />
+                <div>
+                  <span class="author-name">Hari Khadka</span>
+                  <span class="author-role">Businessman</span>
+                  <div class="author-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
                   </div>
-                </div>
-                <p class="testimonial-text">
-                  "I was skeptical at first, but receiving ₹25,000 back on my
-                  ₹100,000 premium was incredible. The process was seamless and
-                  I got the exact same policy I would have gotten directly from
-                  the Insurance company."
-                </p>
-                <div class="testimonial-proof">
-                  <img
-                    src="images/Cash Back/p1.jpg"
-                    alt="Payment proof"
-                    loading="lazy"
-                  />
-                  <span>Received ₹25,000 on 15 Jan 2024</span>
                 </div>
               </div>
-            </div>
-
-            <!-- Testimonial 2 -->
-            <div class="testimonial">
-              <div class="testimonial-content">
-                <div class="testimonial-author">
-                  <img
-                    src="images/Cash Back/p2.jpg"
-                    alt="Rita Magar"
-                    loading="lazy"
-                  />
-                  <div>
-                    <span class="author-name">Rita Magar</span>
-                    <span class="author-role">Hotel Owner</span>
-                    <div class="author-rating">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </div>
-                  </div>
-                </div>
-                <p class="testimonial-text">
-                  "As a small business owner, every Rupee counts. The ₹18,500
-                  cash back I received through Merobima helped me reinvest in my
-                  company's growth while still getting excellent coverage."
-                </p>
-                <div class="testimonial-proof">
-                  <img
-                    src="images/Cash Back/p3.avif"
-                    alt="Payment proof"
-                    loading="lazy"
-                  />
-                  <span>Received ₹18,500 on 5 Feb 2024</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Testimonial 3 -->
-            <div class="testimonial">
-              <div class="testimonial-content">
-                <div class="testimonial-author">
-                  <img
-                    src="images/testimonial-3.jpg"
-                    alt="Sita Thapa"
-                    loading="lazy"
-                  />
-                  <div>
-                    <span class="author-name">Sita Thapa</span>
-                    <span class="author-role">Teacher</span>
-                    <div class="author-rating">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star-half-alt"></i>
-                    </div>
-                  </div>
-                </div>
-                <p class="testimonial-text">
-                  "I never thought I could get money back on insurance. Merobima
-                  made it possible and the service was excellent throughout the
-                  entire process. They even helped me compare policies."
-                </p>
-                <div class="testimonial-proof">
-                  <img
-                    src="images/payment-proof-3.jpg"
-                    alt="Payment proof"
-                    loading="lazy"
-                  />
-                  <span>Received ₹12,750 on 22 Mar 2024</span>
-                </div>
+              <p class="testimonial-text">
+                "I was skeptical at first, but receiving ₹25,000 back on my
+                ₹100,000 premium was incredible. The process was seamless and
+                I got the exact same policy I would have gotten directly from
+                the Insurance company."
+              </p>
+              <div class="testimonial-proof">
+                <img
+                  src="images/payments/payment-1.jpg"
+                  alt="Payment proof from Hari Khadka"
+                  loading="lazy"
+                  width="100"
+                  height="60"
+                />
+                <span>Received ₹25,000 on 15 Jan 2024</span>
               </div>
             </div>
           </div>
 
-          <!-- Navigation Dots Container -->
-          <div class="slider-dots"></div>
+          <!-- Testimonial 2 -->
+          <div class="testimonial">
+            <div class="testimonial-content">
+              <div class="testimonial-author">
+                <img
+                  src="images/testimonials/rita-magar.jpg"
+                  alt="Rita Magar"
+                  loading="lazy"
+                  width="80"
+                  height="80"
+                />
+                <div>
+                  <span class="author-name">Rita Magar</span>
+                  <span class="author-role">Hotel Owner</span>
+                  <div class="author-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="testimonial-text">
+                "As a small business owner, every Rupee counts. The ₹18,500
+                cash back I received through Merobima helped me reinvest in my
+                company's growth while still getting excellent coverage."
+              </p>
+              <div class="testimonial-proof">
+                <img
+                  src="images/payments/payment-2.jpg"
+                  alt="Payment proof from Rita Magar"
+                  loading="lazy"
+                  width="100"
+                  height="60"
+                />
+                <span>Received ₹18,500 on 5 Feb 2024</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="testimonial">
+            <div class="testimonial-content">
+              <div class="testimonial-author">
+                <img
+                  src="images/testimonials/sita-thapa.jpg"
+                  alt="Sita Thapa"
+                  loading="lazy"
+                  width="80"
+                  height="80"
+                />
+                <div>
+                  <span class="author-name">Sita Thapa</span>
+                  <span class="author-role">Teacher</span>
+                  <div class="author-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="testimonial-text">
+                "I never thought I could get money back on insurance. Merobima
+                made it possible and the service was excellent throughout the
+                entire process. They even helped me compare policies."
+              </p>
+              <div class="testimonial-proof">
+                <img
+                  src="images/payments/payment-3.jpg"
+                  alt="Payment proof from Sita Thapa"
+                  loading="lazy"
+                  width="100"
+                  height="60"
+                />
+                <span>Received ₹12,750 on 22 Mar 2024</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="testimonial-proof-grid">
+        <div class="slider-dots"></div>
+
+        <div class="payment-proofs">
           <h3>Recent Cash Back Payments to Our Customers:</h3>
           <div class="proof-grid">
             <div class="proof-item">
               <img
-                src="images/payment-1.jpg"
+                src="images/payments/payment-1.jpg"
                 alt="Payment proof"
                 loading="lazy"
+                width="150"
+                height="100"
               />
               <p>₹25,000 to Hari</p>
             </div>
             <div class="proof-item">
               <img
-                src="images/payment-2.jpg"
+                src="images/payments/payment-2.jpg"
                 alt="Payment proof"
                 loading="lazy"
+                width="150"
+                height="100"
               />
               <p>₹18,500 to Rita</p>
             </div>
             <div class="proof-item">
               <img
-                src="images/payment-3.jpg"
+                src="images/payments/payment-3.jpg"
                 alt="Payment proof"
                 loading="lazy"
+                width="150"
+                height="100"
               />
               <p>₹32,000 to Raj</p>
             </div>
             <div class="proof-item">
               <img
-                src="images/payment-4.jpg"
+                src="images/payments/payment-4.jpg"
                 alt="Payment proof"
                 loading="lazy"
+                width="150"
+                height="100"
               />
               <p>₹12,750 to Sita</p>
             </div>
@@ -770,26 +783,30 @@
       </div>
     </section>
 
-<!-- Blog Section -->
-<section class="blog-section" id="blog">
-  <div class="container">
-    <div class="section-title">
-      <h2>Latest <span class="highlight">Blog Posts</span></h2>
-      <p>Stay informed with our insurance tips and news</p>
-    </div>
-    
-    <div class="posts-grid" id="blog-posts">
-      <div class="loading">Loading posts...</div>
-    </div>
-  </div>
-</section>
+    <!-- Blog Section -->
+    <section class="blog-section" id="blog">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Latest <span class="highlight">Blog Posts</span></h2>
+          <p class="section-subtitle">Stay informed with our insurance tips and news</p>
+        </div>
+        
+        <div class="blog-grid" id="blog-posts">
+          <div class="loading">Loading posts...</div>
+        </div>
+        
+        <div class="section-footer">
+          <a href="blog.html" class="btn btn--primary">View All Posts</a>
+        </div>
+      </div>
+    </section>
 
     <!-- FAQ Section -->
-    <section class="faq" id="faq">
+    <section class="faq-section" id="faq">
       <div class="container">
-        <div class="section-title">
-          <h2>Frequently <span class="highlight">Asked Questions</span></h2>
-          <p>Everything you need to know about our cash back program</p>
+        <div class="section-header">
+          <h2 class="section-title">Frequently <span class="highlight">Asked Questions</span></h2>
+          <p class="section-subtitle">Everything you need to know about our cash back program</p>
         </div>
 
         <div class="faq-container">
@@ -961,10 +978,10 @@
           </div>
 
           <div class="cta-buttons">
-            <a href="#affiliate-link" class="btn btn-primary pulse">
+            <a href="#affiliate-link" class="btn btn--primary btn--pulse">
               <i class="fas fa-wallet"></i> Claim Your Cash Back Now
             </a>
-            <a href="tel:+9779800000000" class="btn btn-secondary">
+            <a href="tel:+9779800000000" class="btn btn--secondary">
               <i class="fas fa-phone"></i> Speak to Our Team
             </a>
           </div>
@@ -973,14 +990,14 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <section class="contact-section" id="contact">
       <div class="container">
-        <div class="section-title">
-          <h2>Contact <span class="highlight">Us</span></h2>
-          <p>Have questions? Get in touch with our team</p>
+        <div class="section-header">
+          <h2 class="section-title">Contact <span class="highlight">Us</span></h2>
+          <p class="section-subtitle">Have questions? Get in touch with our team</p>
         </div>
 
-        <div class="contact-container">
+        <div class="contact-grid">
           <div class="contact-info">
             <div class="contact-item">
               <i class="fas fa-map-marker-alt"></i>
@@ -1017,18 +1034,10 @@
             <div class="contact-social">
               <h3>Follow Us</h3>
               <div class="social-links">
-                <a href="#" aria-label="Facebook"
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a href="#" aria-label="Twitter"
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a href="#" aria-label="Instagram"
-                  ><i class="fab fa-instagram"></i
-                ></a>
-                <a href="#" aria-label="LinkedIn"
-                  ><i class="fab fa-linkedin-in"></i
-                ></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
               </div>
             </div>
           </div>
@@ -1064,27 +1073,23 @@
 
             <div class="form-group checkbox">
               <input type="checkbox" id="consent" required checked />
-              <label for="consent"
-                >I agree to receive information about cash back offers</label
-              >
+              <label for="consent">I agree to receive information about cash back offers</label>
             </div>
 
-            <div class="button-wrapper">
-              <button type="submit" class="submit-btn">
-                Get My Free Estimate
-              </button>
-            </div>
+            <button type="submit" class="btn btn--primary btn--block">
+              Get My Free Estimate
+            </button>
           </form>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
       <div class="container">
-        <div class="footer-container">
+        <div class="footer-grid">
           <div class="footer-about">
-            <a href="#" class="footer-logo">Mero<span>Bima</span></a>
+            <a href="index.html" class="footer-logo">Mero<span>Bima</span></a>
             <p>
               Helping families secure their financial future while earning cash
               back on their life insurance policies since 2024.
@@ -1092,70 +1097,48 @@
           </div>
 
           <div class="footer-links">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="#benefits">Benefits</a></li>
-              <li><a href="#how-it-works">How It Works</a></li>
-              <li><a href="#testimonials">Testimonials</a></li>
-              <li><a href="#faq">FAQs</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-links">
             <h3>Insurance Types</h3>
             <ul>
-              <li><a href="#">Term Life</a></li>
-              <li><a href="#">Whole Life</a></li>
-              <li><a href="#">Family Life</a></li>
-              <li><a href="#">Universal Life</a></li>
+              <li><a href="life-insurance.html">Term Life</a></li>
+              <li><a href="life-insurance.html">Whole Life</a></li>
+              <li><a href="health-insurance.html">Family Life</a></li>
+              <li><a href="life-insurance.html">Universal Life</a></li>
             </ul>
           </div>
 
           <div class="footer-links">
             <h3>Resources</h3>
             <ul>
-              <li><a href="#">Insurance Glossary</a></li>
-              <li><a href="#">Premium Calculator</a></li>
-              <li><a href="#">Claims Process</a></li>
-              <li><a href="#">Policy Renewal</a></li>
+              <li><a href="resources.html">Insurance Glossary</a></li>
+              <li><a href="calculator.html">Premium Calculator</a></li>
+              <li><a href="claims.html">Claims Process</a></li>
+              <li><a href="renewal.html">Policy Renewal</a></li>
             </ul>
           </div>
 
           <div class="footer-links">
             <h3>Contact</h3>
             <ul>
-              <li>
-                <a
-                  href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=new"
-                  >Email Us</a
-                >
-              </li>
+              <li><a href="mailto:help@merobima.com">Email Us</a></li>
               <li><a href="tel:+9779800000000">(+977) 9800000000</a></li>
               <li>
-                <a
-                  href="https://viber.com/chat?number=9800000000"
-                  target="_blank"
-                  rel="noopener"
-                  >Chat on Viber</a
-                >
+                <a href="viber://chat?number=9800000000" target="_blank" rel="noopener">
+                  Chat on Viber
+                </a>
               </li>
               <li>
-                <a
-                  href="https://wa.me/9800000000"
-                  target="_blank"
-                  rel="noopener"
-                  >Chat on WhatsApp</a
-                >
+                <a href="https://wa.me/9800000000" target="_blank" rel="noopener">
+                  Chat on WhatsApp
+                </a>
               </li>
             </ul>
           </div>
         </div>
+        
         <div class="footer-bottom">
           <p>
             &copy; 2024 - <span id="currentYear"></span>.
-            <a href="https://prabhat.info.np" rel="noopener" target="_blank"
-              >Merobima.com.</a
-            >
+            <a href="https://prabhat.info.np" rel="noopener" target="_blank">Merobima.com</a>.
             All rights reserved. |
             <a href="privacy.html" class="terms">Privacy Policy</a> |
             <a href="terms.html" class="terms">Terms of Service</a>
@@ -1216,6 +1199,7 @@
       </button>
     </div>
 
+    <!-- Scripts -->
     <script src="js/main.js"></script>
   </body>
 </html>
