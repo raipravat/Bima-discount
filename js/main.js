@@ -1,180 +1,512 @@
-// Main JavaScript File
+document.addEventListener("DOMContentLoaded", function () {
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".nav-links a");
 
-// Import components
-import { initMobileMenu } from './components/navigation.js';
-import { initCalculator } from './components/calculator.js';
-import { initTestimonialSlider } from './components/slider.js';
-import { initChatWidget } from './components/chat.js';
-import { initScrollToTop } from './components/scroll.js';
-import { initFAQ } from './components/faq.js';
-import { fetchBlogPosts } from './components/blog.js';
-
-// DOM Ready
-document.addEventListener('DOMContentLoaded', function() {
-  // Update current year in footer
-  document.getElementById('currentYear').textContent = new Date().getFullYear();
-  
-  // Initialize components
-  initMobileMenu();
-  initCalculator();
-  initTestimonialSlider();
-  initChatWidget();
-  initScrollToTop();
-  initFAQ();
-  
-  // Load blog posts
-  fetchBlogPosts();
-  
-  // Countdown timer for CTA section
-  function updateCountdown() {
-    const now = new Date();
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(23, 59, 59, 0);
-
-    const diff = tomorrow - now;
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+  // Highlight first link on page load if at top
+  if (window.scrollY === 0) {
+    document
+      .querySelector('.nav-links a[href="#hero"]')
+      .classList.add("active");
   }
 
-  // Update countdown every second
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  window.addEventListener("scroll", function () {
+    let current = "";
 
-  // Animation for stats counter
-  function animateStats() {
-    const statNumbers = document.querySelectorAll('.stat-number');
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
 
-    statNumbers.forEach((statNumber) => {
-      if (!statNumber.dataset.animated) {
-        const originalText = statNumber.textContent;
-        const match = originalText.match(/^([\d.]+)(.*)$/);
-        if (!match) return;
-
-        const targetNumber = parseFloat(match[1].replace(/,/g, ''));
-        const suffix = match[2] || '';
-        let current = 0;
-        const increment = targetNumber / 100;
-        const isDecimal = originalText.includes('.');
-
-        const timer = setInterval(() => {
-          current += increment;
-
-          if (current >= targetNumber) {
-            clearInterval(timer);
-            statNumber.textContent = originalText;
-            statNumber.dataset.animated = true;
-          } else {
-            let displayNumber;
-            if (isDecimal) {
-              displayNumber = current.toFixed(1);
-            } else {
-              displayNumber = Math.floor(current);
-            }
-            statNumber.textContent = displayNumber.toLocaleString('en-IN') + suffix;
-          }
-        }, 20);
+      if (pageYOffset >= sectionTop - sectionHeight / 3) {
+        current = section.getAttribute("id");
       }
     });
-  }
 
-  // Trigger animation when stats section comes into view
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateStats();
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === `#${current}`) {
+        link.classList.add("active");
+      }
+    });
+  });
 
-  const statsSection = document.querySelector('.stats-section');
-  if (statsSection) {
-    observer.observe(statsSection);
-  }
-
-  // Lead form submission
-  const leadForm = document.getElementById('lead-form');
-  if (leadForm) {
-    leadForm.addEventListener('submit', function(e) {
+  // Smooth scrolling for anchor links
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
       e.preventDefault();
-      alert('Thank you! We\'ll contact you shortly with your cash back estimate.');
-      this.reset();
-    });
-  }
+      const targetId = this.getAttribute("href");
+      const targetSection = document.querySelector(targetId);
 
-  // Insurance comparison filter functionality
-  const filterBtn = document.querySelector('.filter-btn');
-  if (filterBtn) {
-    filterBtn.addEventListener('click', function() {
-      alert('In a full implementation, this would filter the insurance plans based on your selection.');
+      window.scrollTo({
+        top: targetSection.offsetTop,
+        behavior: "smooth",
+      });
     });
-  }
-
-  // Agent search functionality
-  const agentSearchBtn = document.querySelector('.search-btn');
-  if (agentSearchBtn) {
-    agentSearchBtn.addEventListener('click', function() {
-      alert('In a full implementation, this would search for agents in your area.');
-    });
-  }
+  });
 });
+
+// Mobile menu toggle
+const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+const navLinks = document.querySelector(".nav-links");
+
+if (mobileMenuBtn && navLinks) {
+  mobileMenuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+    mobileMenuBtn.textContent = navLinks.classList.contains("show") ? "✕" : "☰";
+  });
+}
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener('click', function(e) {
-    if (this.getAttribute('href') === '#affiliate-link') {
+  anchor.addEventListener("click", function (e) {
+    if (this.getAttribute("href") === "#affiliate-link") {
       e.preventDefault();
-      alert('Redirecting to affiliate application...');
+      alert(
+        "This would redirect to your affiliate link. Replace #affiliate-link with your actual link in the HTML."
+      );
       return;
     }
 
     e.preventDefault();
-    const targetId = this.getAttribute('href');
-    if (targetId === '#') return;
+    const targetId = this.getAttribute("href");
+    if (targetId === "#") return;
 
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
       window.scrollTo({
         top: targetElement.offsetTop - 80,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
+
+      // Close mobile menu after click
+      if (window.innerWidth <= 768) {
+        navLinks.classList.remove("show");
+        mobileMenuBtn.textContent = "☰";
+      }
     }
   });
 });
 
 // Active section indicator for navigation
-const sections = document.querySelectorAll('section');
-const navItems = document.querySelectorAll('.nav-links li a');
+const sections = document.querySelectorAll("section");
+const navItems = document.querySelectorAll(".nav-links li a");
+const activeIndicator = document.querySelector(".active-indicator");
 
 function setActiveSection() {
-  let currentSection = '';
+  let currentSection = "";
 
   sections.forEach((section) => {
     const sectionTop = section.offsetTop - 100;
     if (window.pageYOffset >= sectionTop) {
-      currentSection = section.getAttribute('id');
+      currentSection = section.getAttribute("id");
     }
   });
 
+  // Update navigation links
   navItems.forEach((item) => {
-    item.classList.remove('active');
-    if (item.getAttribute('href') === `#${currentSection}`) {
-      item.classList.add('active');
+    item.classList.remove("active");
+    if (item.getAttribute("href") === `#${currentSection}`) {
+      item.classList.add("active");
+
+      // Update indicator position
+      const activeItem = item.parentElement;
+      const itemLeft = activeItem.offsetLeft;
+      const itemWidth = activeItem.offsetWidth;
+
+      if (activeIndicator) {
+        activeIndicator.style.width = `${itemWidth}px`;
+        activeIndicator.style.left = `${itemLeft}px`;
+        activeIndicator.style.opacity = "1";
+      }
+    }
+  });
+
+  // Hide indicator if no active section
+  if (!currentSection && activeIndicator) {
+    activeIndicator.style.opacity = "0";
+  }
+}
+
+// Testimonial Slider
+const testimonials = document.querySelectorAll(".testimonial");
+const dotsContainer = document.querySelector(".slider-dots");
+let currentIndex = 0;
+let interval;
+
+// Create navigation dots dynamically
+function createDots() {
+  testimonials.forEach((_, index) => {
+    const dot = document.createElement("span");
+    dot.classList.add("dot");
+    if (index === 0) dot.classList.add("active");
+    dot.dataset.index = index;
+    dotsContainer.appendChild(dot);
+  });
+}
+
+function showTestimonial(index) {
+  // Hide all testimonials with sliding out animation
+  testimonials.forEach((testimonial) => {
+    if (testimonial.classList.contains("active")) {
+      testimonial.style.animation = "slideOut 0.5s ease forwards";
+      setTimeout(() => {
+        testimonial.classList.remove("active");
+        testimonial.style.animation = "";
+      }, 500);
+    }
+  });
+
+  // Show current testimonial with sliding in animation
+  setTimeout(() => {
+    testimonials[index].classList.add("active");
+  }, 500);
+
+  // Update dots
+  const dots = document.querySelectorAll(".dot");
+  dots.forEach((dot) => {
+    dot.classList.remove("active");
+  });
+  dots[index].classList.add("active");
+
+  currentIndex = index;
+}
+
+// Initialize dots and event listeners
+function initSlider() {
+  createDots();
+
+  // Dot navigation
+  dotsContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("dot")) {
+      const index = parseInt(e.target.dataset.index);
+      showTestimonial(index);
+      resetInterval();
+    }
+  });
+
+  showTestimonial(0);
+  resetInterval();
+}
+
+function nextTestimonial() {
+  currentIndex = (currentIndex + 1) % testimonials.length;
+  showTestimonial(currentIndex);
+}
+
+function resetInterval() {
+  clearInterval(interval);
+  interval = setInterval(nextTestimonial, 5000);
+}
+
+// Initialize slider
+initSlider();
+
+// Pause on hover
+const sliderContainer = document.querySelector(".testimonial-container");
+if (sliderContainer) {
+  sliderContainer.addEventListener("mouseenter", () => {
+    clearInterval(interval);
+  });
+
+  sliderContainer.addEventListener("mouseleave", () => {
+    resetInterval();
+  });
+}
+
+// FAQ functionality with transitions
+document.addEventListener("DOMContentLoaded", function () {
+  const questions = document.querySelectorAll(".faq-question");
+  const answers = document.querySelectorAll(".faq-answer");
+
+  function isMobileView() {
+    return window.innerWidth <= 992;
+  }
+
+  function handleQuestionClick(question) {
+    const targetId = question.getAttribute("data-target");
+
+    if (isMobileView()) {
+      // Mobile behavior
+      const wasActive = question.classList.contains("active");
+      const mobileAnswer = question.nextElementSibling;
+
+      // Close all questions and answers first
+      questions.forEach((q) => {
+        q.classList.remove("active");
+        const ans = q.nextElementSibling;
+        if (ans && ans.classList.contains("mobile-answer")) {
+          ans.style.maxHeight = "0";
+          ans.style.padding = "0 20px";
+        }
+      });
+
+      // Toggle clicked question if it wasn't active
+      if (!wasActive) {
+        question.classList.add("active");
+        if (mobileAnswer && mobileAnswer.classList.contains("mobile-answer")) {
+          mobileAnswer.style.maxHeight = mobileAnswer.scrollHeight + "px";
+          mobileAnswer.style.padding = "20px";
+        }
+      }
+    } else {
+      // Desktop behavior
+      questions.forEach((q) => q.classList.remove("active"));
+      question.classList.add("active");
+
+      answers.forEach((answer) => {
+        answer.classList.remove("active");
+        if (answer.id === targetId) {
+          answer.classList.add("active");
+        }
+      });
+    }
+  }
+
+  // Initialize mobile answers if in mobile view
+  if (isMobileView()) {
+    answers.forEach((answer) => {
+      const question = document.querySelector(
+        `.faq-question[data-target="${answer.id}"]`
+      );
+      if (question) {
+        const mobileAnswer = answer.cloneNode(true);
+        mobileAnswer.classList.add("mobile-answer");
+        mobileAnswer.style.maxHeight = "0";
+        mobileAnswer.style.padding = "0 20px";
+        question.insertAdjacentElement("afterend", mobileAnswer);
+      }
+    });
+  }
+
+  questions.forEach((question) => {
+    question.addEventListener("click", () => handleQuestionClick(question));
+  });
+
+  // Handle window resize
+  window.addEventListener("resize", function () {
+    if (isMobileView()) {
+      // Switch to mobile view
+      answers.forEach((answer) => {
+        const question = document.querySelector(
+          `.faq-question[data-target="${answer.id}"]`
+        );
+        if (
+          question &&
+          !question.nextElementSibling.classList.contains("mobile-answer")
+        ) {
+          const mobileAnswer = answer.cloneNode(true);
+          mobileAnswer.classList.add("mobile-answer");
+          mobileAnswer.style.maxHeight = "0";
+          mobileAnswer.style.padding = "0 20px";
+          question.insertAdjacentElement("afterend", mobileAnswer);
+        }
+      });
+      document.querySelector(".faq-answers").style.display = "none";
+    } else {
+      // Switch to desktop view
+      document.querySelector(".faq-answers").style.display = "block";
+      const mobileAnswers = document.querySelectorAll(".mobile-answer");
+      mobileAnswers.forEach((answer) => answer.remove());
+
+      // Activate first question
+      if (questions.length > 0) {
+        questions[0].click();
+      }
+    }
+  });
+
+  // Initialize first question
+  if (questions.length > 0) {
+    if (!isMobileView()) {
+      questions[0].click(); // Desktop - show first answer
+    } else {
+      // Mobile - prepare answers but don't show any by default
+      questions[0].classList.remove("active");
+    }
+  }
+});
+
+// Set initial active section and add scroll event listener
+setActiveSection();
+window.addEventListener("scroll", setActiveSection);
+
+// Animation for stats counter
+function animateStats() {
+  const statNumbers = document.querySelectorAll(".stat-number");
+
+  statNumbers.forEach((statNumber) => {
+    if (!statNumber.dataset.animated) {
+      const originalText = statNumber.textContent;
+
+      // Extract components from the original text
+      const match = originalText.match(/^([\d.]+)(.*)$/);
+      if (!match) return;
+
+      const targetNumber = parseFloat(match[1]);
+      const suffix = match[2] || "";
+
+      let current = 0;
+      const increment = targetNumber / 100; // Controls animation speed
+      const isDecimal = originalText.includes(".");
+
+      const timer = setInterval(() => {
+        current += increment;
+
+        if (current >= targetNumber) {
+          clearInterval(timer);
+          statNumber.textContent = originalText; // Show exact original text
+          statNumber.dataset.animated = true;
+        } else {
+          // Format the currently animating number
+          let displayNumber;
+          if (isDecimal) {
+            displayNumber = current.toFixed(1); // For decimals like 4.5/5
+          } else {
+            displayNumber = Math.floor(current); // For whole numbers
+          }
+          statNumber.textContent = displayNumber + suffix; // Keep suffix during animation
+        }
+      }, 20);
     }
   });
 }
 
-setActiveSection();
-window.addEventListener('scroll', setActiveSection);
+// Trigger animation when stats section comes into view
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateStats();
+        observer.unobserve(entry.target); // Stop observing after triggering
+      }
+    });
+  },
+  { threshold: 0.1 }
+);
+
+// Start observing the stats section
+const statsSection = document.querySelector(".stats");
+if (statsSection) {
+  observer.observe(statsSection);
+}
+
+// Scroll to top button functionality
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+const scrollPercentage = document.getElementById("scrollPercentage");
+
+function toggleScrollToTopButton() {
+  if (window.pageYOffset > 300) {
+    scrollToTopBtn.classList.add("show");
+  } else {
+    scrollToTopBtn.classList.remove("show");
+  }
+
+  // Calculate scroll percentage
+  const scrollHeight =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+  const scrolled = (window.pageYOffset / scrollHeight) * 100;
+  scrollPercentage.textContent = Math.round(scrolled) + "%";
+}
+
+scrollToTopBtn.addEventListener("click", function () {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});
+
+window.addEventListener("scroll", toggleScrollToTopButton);
+
+// Blogger Feed Integration
+document.addEventListener("DOMContentLoaded", function () {
+  // Configuration - Replace with your blog details
+  const BLOG_URL = "https://blog.prabhat.info.np";
+  const POSTS_TO_SHOW = 3; // Number of posts to display
+  const EXCERPT_LENGTH = 120; // Character length for excerpts
+
+  async function fetchBlogPosts() {
+    try {
+      // Using JSONP approach to avoid CORS issues
+      const callbackName = "handleBloggerResponse" + Date.now();
+      window[callbackName] = function (data) {
+        displayPosts(data.feed.entry);
+        delete window[callbackName];
+      };
+
+      const script = document.createElement("script");
+      script.src = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&callback=${callbackName}`;
+      script.onerror = () => {
+        document.getElementById("blog-posts").innerHTML = `
+                    <div class="error" style="text-align:center; padding:40px; color:#e74c3c;">
+                        There is something wrong with blog posts. try again later or
+                        <a href="${BLOG_URL}" style="color:#3498db;">Visit blog directly</a>
+                    </div>`;
+      };
+      document.head.appendChild(script);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  }
+
+  function displayPosts(posts) {
+    const container = document.getElementById("blog-posts");
+
+    if (!posts || posts.length === 0) {
+      container.innerHTML =
+        '<div style="text-align:center; padding:40px;">We found nothing. Refresh the page or try again later.</div>';
+      return;
+    }
+
+    let html = "";
+    posts.slice(0, POSTS_TO_SHOW).forEach((post) => {
+      const title = post.title.$t;
+      const fullContent = post.content.$t;
+      const excerpt =
+        stripHtml(fullContent).substring(0, EXCERPT_LENGTH) + "...";
+      const url = post.link.find((link) => link.rel === "alternate").href;
+      const date = new Date(post.published.$t).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      // Try to find the first image in the post
+      const imgMatch = fullContent.match(/<img[^>]+src="([^">]+)"/);
+      const imageUrl = imgMatch ? imgMatch[1] : null;
+
+      html += `
+                <div class="blogs-card">
+                    ${
+                      imageUrl
+                        ? `
+                    <div class="blogs-image">
+                        <img src="${imageUrl}" alt="${title}" loading="lazy">
+                    </div>
+                    `
+                        : ""
+                    }
+                    <div class="blogs-content">
+                        <h3>${title}</h3>
+                        <p class="post-excerpt">${excerpt}</p>
+                        <div class="blogs-date">
+                            <span>${date}</span>
+                        </div>
+                        <a href="${url}" class="blogs-link" target="_blank" rel="noopener">Read Post</a>
+                    </div>
+                </div>
+            `;
+    });
+
+    container.innerHTML = html;
+  }
+
+  // Helper function to remove HTML tags
+  function stripHtml(html) {
+    const tmp = document.createElement("div");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  }
+
+  // Load posts when page is ready
+  fetchBlogPosts();
+});
