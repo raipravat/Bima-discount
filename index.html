@@ -61,22 +61,12 @@
           <button class="mobile-menu-btn">☰</button>
           <ul class="nav-links">
             <li><a href="#hero" class="active">Home</a></li>
-            <li class="dropdown">
-              <a href="#insurance"
-                >Insurance <i class="fas fa-chevron-down"></i
-              ></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Life Insurance</a></li>
-                <li><a href="#">Health Insurance</a></li>
-                <li><a href="#">Vehicle Insurance</a></li>
-                <li><a href="#">Travel Insurance</a></li>
-              </ul>
-            </li>
-            <li><a href="#benefits">Cash Back</a></li>
+           <li><a href="#products">Products</a></li>
+            <li><a href="#resources">Resources</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#agents">Find Agent</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#blog">Blogs</a></li>
+            <li><a href="#about">About Us</a></li>
           </ul>
         </div>
       </div>
@@ -87,17 +77,17 @@
       <div class="container top-bar-content">
         <div class="call-center-info">
           <i class="fas fa-phone-alt"></i>
-          <span>Call bank:</span>
-          <a href="tel:+9779800000000">+977 9800000000</a>
+            <span>Request Callback:</span>
+          <a href="tel:+9779800000000">+977-9800000000</a>
         </div>
          <div class="call-center-info">
-          <i class="fas fa-whatsapp-in"></i>
+            <i class="fab fa-whatsapp"></i>
           <span>WhatsApp:</span>
-          <a href="https://w.pe/+9779800000000">+977 9800000000</a>
+            <a href="https://wa.me/9779800000000" target="_blank" rel="noopener">+977-9800000000</a>
         </div>
         <div class="top-bar-links">
-          <a href="#"><i class="fas fa-map-marker-alt"></i> Branch Locator</a>
-          <a href="#"><i class="fas fa-user-tie"></i> Agent Login</a>
+          <a href="#"><i class="fas fa-map-marker-alt"></i> Locator</a>
+          <a href="#"><i class="fas fa-user-tie"></i> Request Agent</a>
         </div>
       </div>
     </div>
@@ -116,7 +106,7 @@
           <div class="cashback-calculator">
             <h4>Calculate Your Potential Cash Back:</h4>
             <div class="calculator-input">
-              <span>₹</span>
+              <span>रु.</span>
               <input
                 type="number"
                 id="premium-input"
@@ -125,7 +115,7 @@
               <button id="calculate-btn">Calculate</button>
             </div>
             <div class="calculator-result">
-              Your estimated cash back: <span id="cashback-amount">₹0</span>
+              Your estimated cash back: <span id="cashback-amount">रु.0</span>
             </div>
           </div>
 
@@ -193,12 +183,12 @@
         <h3>Trusted by leading insurance providers:</h3>
         <div class="partner-logos">
           <img
-            src="images/Partner/Ne.png"
+            src="images/Partner/Nep.png"
             alt="Nepal Life Insurance"
             loading="lazy"
           />
           <img
-            src="images/Partner/Na.jpg"
+            src="images/Partner/Nat.jpg"
             alt="National Life Insurance"
             loading="lazy"
           />
@@ -240,10 +230,10 @@
               <label for="coverage">Coverage Amount</label>
               <select id="coverage">
                 <option value="all">Any Coverage</option>
-                <option value="5lakh">Up to ₹5 Lakh</option>
-                <option value="10lakh">₹5-10 Lakh</option>
-                <option value="20lakh">₹10-20 Lakh</option>
-                <option value="50lakh">₹20-50 Lakh</option>
+                <option value="5lakh">Up to रु.5 Lakh</option>
+                <option value="10lakh">रु.5-10 Lakh</option>
+                <option value="20lakh">रु.10-20 Lakh</option>
+                <option value="50lakh">रु.20-50 Lakh</option>
               </select>
             </div>
 
@@ -259,15 +249,15 @@
               <div class="plan-details">
                 <div class="detail-item">
                   <span>Coverage</span>
-                  <strong>₹10 Lakh</strong>
+                  <strong>रु.10 Lakh</strong>
                 </div>
                 <div class="detail-item">
                   <span>Premium</span>
-                  <strong>₹12,000/year</strong>
+                  <strong>रु.12,000/year</strong>
                 </div>
                 <div class="detail-item">
                   <span>Cash Back</span>
-                  <strong class="highlight">₹3,000</strong>
+                  <strong class="highlight">रु.3,000</strong>
                 </div>
                 <div class="detail-item">
                   <span>Term</span>
@@ -288,15 +278,15 @@
               <div class="plan-details">
                 <div class="detail-item">
                   <span>Coverage</span>
-                  <strong>₹5 Lakh</strong>
+                  <strong>रु.5 Lakh</strong>
                 </div>
                 <div class="detail-item">
                   <span>Premium</span>
-                  <strong>₹8,000/year</strong>
+                  <strong>रु.8,000/year</strong>
                 </div>
                 <div class="detail-item">
                   <span>Cash Back</span>
-                  <strong class="highlight">₹2,000</strong>
+                  <strong class="highlight">रु.2,000</strong>
                 </div>
                 <div class="detail-item">
                   <span>Term</span>
@@ -321,11 +311,11 @@
                 </div>
                 <div class="detail-item">
                   <span>Premium</span>
-                  <strong>₹15,000/year</strong>
+                  <strong>रु.15,000/year</strong>
                 </div>
                 <div class="detail-item">
                   <span>Cash Back</span>
-                  <strong class="highlight">₹3,750</strong>
+                  <strong class="highlight">रु.3,750</strong>
                 </div>
                 <div class="detail-item">
                   <span>Term</span>
@@ -636,8 +626,8 @@
                   </div>
                 </div>
                 <p class="testimonial-text">
-                  "I was skeptical at first, but receiving ₹25,000 back on my
-                  ₹100,000 premium was incredible. The process was seamless and
+                  "I was skeptical at first, but receiving रु.25,000 back on my
+                  रु.100,000 premium was incredible. The process was seamless and
                   I got the exact same policy I would have gotten directly from
                   the Insurance company."
                 </p>
@@ -647,7 +637,7 @@
                     alt="Payment proof"
                     loading="lazy"
                   />
-                  <span>Received ₹25,000 on 15 Jan 2024</span>
+                  <span>Received रु.25,000 on 15 Jan 2024</span>
                 </div>
               </div>
             </div>
@@ -674,7 +664,7 @@
                   </div>
                 </div>
                 <p class="testimonial-text">
-                  "As a small business owner, every Rupee counts. The ₹18,500
+                  "As a small business owner, every Rupee counts. The रु.18,500
                   cash back I received through Merobima helped me reinvest in my
                   company's growth while still getting excellent coverage."
                 </p>
@@ -684,7 +674,7 @@
                     alt="Payment proof"
                     loading="lazy"
                   />
-                  <span>Received ₹18,500 on 5 Feb 2024</span>
+                  <span>Received रु.18,500 on 5 Feb 2024</span>
                 </div>
               </div>
             </div>
@@ -721,7 +711,7 @@
                     alt="Payment proof"
                     loading="lazy"
                   />
-                  <span>Received ₹12,750 on 22 Mar 2024</span>
+                  <span>Received रु.12,750 on 22 Mar 2024</span>
                 </div>
               </div>
             </div>
@@ -740,7 +730,7 @@
                 alt="Payment proof"
                 loading="lazy"
               />
-              <p>₹25,000 to Hari</p>
+              <p>रु.25,000 to Hari</p>
             </div>
             <div class="proof-item">
               <img
@@ -748,7 +738,7 @@
                 alt="Payment proof"
                 loading="lazy"
               />
-              <p>₹18,500 to Rita</p>
+              <p>रु.18,500 to Rita</p>
             </div>
             <div class="proof-item">
               <img
@@ -756,7 +746,7 @@
                 alt="Payment proof"
                 loading="lazy"
               />
-              <p>₹32,000 to Raj</p>
+              <p>रु.32,000 to Raj</p>
             </div>
             <div class="proof-item">
               <img
@@ -764,7 +754,7 @@
                 alt="Payment proof"
                 loading="lazy"
               />
-              <p>₹12,750 to Sita</p>
+              <p>रु.12,750 to Sita</p>
             </div>
           </div>
           <p class="small-text">
@@ -837,7 +827,7 @@
                 </p>
                 <p>
                   We're fully transparent about how the program works and have
-                  paid out over ₹25 lakh to our customers.
+                  paid out over रु.25 lakh to our customers.
                 </p>
               </div>
 
@@ -848,7 +838,7 @@
                   depending on the policy type and provider.
                 </p>
                 <p>
-                  For example, on a ₹100,000 premium, you could receive ₹25,000
+                  For example, on a रु.100,000 premium, you could receive रु.25,000
                   back. Use our calculator above to estimate your potential cash
                   back.
                 </p>
@@ -964,7 +954,7 @@
             </div>
           </div>
 
-          <div class="cta-buttons">
+          <div class="cta-buttons cta-btns">
             <a href="#affiliate-link" class="btn btn-primary pulse">
               <i class="fas fa-wallet"></i> Claim Your Cash Back Now
             </a>
@@ -1033,9 +1023,9 @@
                 <a href="#" aria-label="LinkedIn"
                   ><i class="fab fa-linkedin-in"></i
                 ></a>
-                    <a href="#" aria-label="WhatsApp"
-                  ><i class="fab fa-whatsapp-in"></i
-                ></a>
+                <a href="#" aria-label="WhatsApp"
+                  ><i class="fab fa-whatsapp"></i></a>
+                </a>
               </div>
             </div>
           </div>
@@ -1099,16 +1089,6 @@
           </div>
 
           <div class="footer-links">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="#benefits">Benefits</a></li>
-              <li><a href="#how-it-works">How It Works</a></li>
-              <li><a href="#testimonials">Testimonials</a></li>
-              <li><a href="#faq">FAQs</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-links">
             <h3>Insurance Types</h3>
             <ul>
               <li><a href="#">Term Life</a></li>
@@ -1137,23 +1117,22 @@
                   >Email Us</a
                 >
               </li>
-              <li><a href="tel:+9779800000000">(+977) 9800000000</a></li>
+              <li><a href="tel:+9779800000000">+977-9800000000</a></li>
               <li>
                 <a
                   href="https://viber.com/chat?number=9800000000"
                   target="_blank"
-                  rel="noopener"
-                  >Chat on Viber</a
+                  rel="noopener">
+                  Chat on Viber</a
                 >
               </li>
-              <li>
+                <li>
                 <a
                   href="https://wa.me/9800000000"
                   target="_blank"
                   rel="noopener"
-                  >Chat on WhatsApp</a
-                >
-              </li>
+                  ></i> WhatsApp</a>
+                </li>
             </ul>
           </div>
         </div>

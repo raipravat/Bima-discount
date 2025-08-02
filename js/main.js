@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function calculateCashback() {
     const premium = parseFloat(premiumInput.value) || 0;
     const cashback = premium * 0.25; // 25% cash back
-    cashbackAmount.textContent = `₹${cashback.toLocaleString("en-IN")}`;
+    cashbackAmount.textContent = `रु.${cashback.toLocaleString("en-IN")}`;
   }
 
   calculateBtn.addEventListener("click", calculateCashback);
