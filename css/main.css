@@ -127,7 +127,7 @@ iframe {
   background-color: var(--primary);
 }
 
-.cta-btns{
+.cta-btns {
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -1044,7 +1044,7 @@ header {
 }
 
 .container {
-  max-width: 1200px;
+  width: clamp(300px, 90%, 1600px);
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -1067,11 +1067,7 @@ header {
   gap: 30px;
 }
 
-@media (max-width: 768px) {
-  .posts-grid {
-    grid-template-columns: 1fr;
-  }
-}
+
 
 /* Blog Section */
 .blog-section {
@@ -1197,20 +1193,6 @@ header {
   padding: 40px;
   grid-column: 1 / -1;
   color: var(--dark-gray);
-}
-
-@media (max-width: 768px) {
-  .posts-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .blogs-image {
-    height: 180px;
-  }
-
-  .blogs-link {
-    padding: 8px 12px;
-  }
 }
 
 /* Testimonials Section */
@@ -1768,7 +1750,7 @@ header {
 footer {
   background-color: var(--primary);
   color: var(--light);
-  padding: 60px 0 30px;
+  padding: 60px 0 20px;
 }
 
 .footer-container {
@@ -1844,7 +1826,7 @@ footer {
 
 .footer-bottom {
   text-align: center;
-  padding-top: 30px;
+  padding-top: 15px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 14px;
   opacity: 0.7;
